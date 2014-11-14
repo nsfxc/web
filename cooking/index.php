@@ -10,6 +10,7 @@ and open the template in the editor.
         <title>Cooking</title>
     </head>
     <body>
+        <h1>first line</h1>
         <?php
         // put your code here
         ?>

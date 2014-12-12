@@ -22,11 +22,17 @@ if(isset($_POST['submit'])){
         <meta charset="UTF-8">
         <link href="css/bootstrap.css" rel="stylesheet">
         <link href="css/perso.css" rel="stylesheet">
+        <script src="js/jquery.js"></script>
+        <script src="js/bootstrap.js"></script>
+        <script src="js/registion.js"></script>
         <title>register page</title>
     </head>
     <body>
+        <script language="javascript" type="text/javascript" src="js/jquery-1.11.0.min.js.js"></script>
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-            login:<input type="text" name="login"><br>
+            <div id="regis">
+               login:<input type="text" name="login" id="user"><br>
+            </div>
             password:<input type="text" name="pw"><br>
             e-mail:<input type="text" name="em"><br>
             <input type="submit" name="submit" value="submit">

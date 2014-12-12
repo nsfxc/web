@@ -4,6 +4,17 @@
  * and open the template in the editor.
  */
 $(document).ready(function(){
+    $("#user").blur(function(){
+        $("#regis").append('<p>username existed, please choose another name</p>');
+        var name=$(this).val();
+        var changeURL="Confirm.php?action=check&conf=regis&ingname="+name;
+            $.get(changeURL,function(str){
+                if(str==='1'){
+                    $("#regis").append('<p>username existed, please choose another name</p>');
+                    $("#user").empty();
+                }
+            });
+    });
     $("#subb").click(function(){
         var user=$("#user").val();
         var pass=$("#pass").val();

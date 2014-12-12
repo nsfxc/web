@@ -43,7 +43,16 @@ class database{
             return false;
         }
     }
-
+    
+    public static function finduser($user,$dsn){
+        $result=$dsn->query("SELECT `lg` FROM `users` WHERE `lg`='$user' ");
+        if($row = $result->fetch(PDO::FETCH_ASSOC)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
     public static function check($lg,$pw,$dsn){
         $result=$dsn->query("SELECT `id` FROM `users` WHERE `lg`='$lg' AND `pw`=SHA1('$pw') ");
         if ($result->fetch(PDO::FETCH_ASSOC)){

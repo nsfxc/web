@@ -19,13 +19,13 @@
     <script language="javascript" type="text/javascript" src="js/jquery-1.11.0.min.js.js"></script>
     <form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST">
         <div id="ing">
-         Ingredients:<input type="text" name="name" id="ingbox">
+         Ingredients:<input type="text" name="name" id="ingbox"><br>
         </div>
         <div id="met">
-            Cooking methods:<input type="text" name="methode">
+            Cooking methods:<input type="text" name="methode"><br>
         </div>
         <div id="subm">
-            <input type="submit" value="submit" name="submit"> 
+            <input type="submit" value="submit" name="submit"><br> 
         </div>
     </form>
 </body>

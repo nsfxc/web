@@ -1,21 +1,9 @@
 <?php
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-require ('functions.php');
-if(isset($_POST['submit'])){
-    if (isset($_POST['login'])&&  isset($_POST['pw']) && isset($_POST['em'])){
-        $con =  database::connect();
-        $str = "INSERT INTO users (`lg`, `pw`,`email`) VALUES('$_POST[login]', SHA1('$_POST[pw]'), '$_POST[em]')";
-        $con->query($str);
-        $con=null;
-        
-    }
-    else{
-    }
-}
 ?>
 <html>
     <head>
@@ -25,16 +13,29 @@ if(isset($_POST['submit'])){
         <title>register page</title>
     </head>
     <body>
-        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-            login:<input type="text" name="login"><br>
-            password:<input type="text" name="pw"><br>
-            e-mail:<input type="text" name="em"><br>
+        <form action="index.php" method="post">
+            login:<input type="text" name="login" required><br>
+            password:<input type="password" name="pw" required><br>
+            e-mail:<input type="text" name="em" required<br>
             <input type="submit" name="submit" value="submit">
         </form>
-    </body>
-<?php
+    <?php
+        require ('functions.php');
+        if(isset($_POST['submit'])){
+        if (isset($_POST['login'])&&  isset($_POST['pw']) && isset($_POST['em'])){
+        $con =  database::connect();
+        $str = "INSERT INTO users (`lg`, `pw`,`email`) VALUES('$_POST[login]', SHA1('$_POST[pw]'), '$_POST[em]')";
+        $con->query($str);
+        $con=null;
 
-/* 
+        }
+        else{
+        }
+        }
+        ?>
+</body>
+<?php
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.

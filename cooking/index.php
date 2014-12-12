@@ -18,30 +18,33 @@ and open the template in the editor.
     <body>
         <script language="javascript" type="text/javascript" src="js/jquery-1.11.0.min.js.js"></script>
         <div class="container">
-        <div class="row">
-            <div class="col-md-8 title">
-               <h2> Little Cooker</h2>
-            </div>
-            <div id="regis" class="col-md-4">
+            <div class="row">
+                <div class="col-md-8 title">
+                    <h2> Little Cooker</h2>
+                </div>
+                <div id="regis" class="col-md-4">
                     Login:<input type="text" name="login" class="input" id="user"><br>
                     Password:<input type="password" name="pw" class="input" id="pass">
                     <br><br>
                     <input type="submit" id="subb" value="submit"> 
-                <form action="userAdd.php" method="POST"><input type="submit" value="sign up"></form>
+                    <form action="userAdd.php" method="POST"><input type="submit" value="sign up"></form>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <h3>cook your self</h3>   
+            <br>
+                <div class="row">
+                    <div class="col-md-3">
+                        <a href=""><image src="cook_kirby.gif" /></a>
+                        <button type="button" onclick="location.href = ''">cook your self</button>   
+                    </div>
+                    <div class="col-md-3 col-md-offset-1">
+                        <a href="recipeAdd.php"><image src="Everyone_loves_to_cook.png"></a>
+                        <button type="button" onclick="location.href = 'recipeAdd.php'">ajoute</button>
+                    </div>
+                    <div class="col-md-3 col-md-offset-1">
+                        <a href=""><image src="prepare your party.png" height="421"></a>
+                        <button type="button" onclick="location.href = ''">plan your party</buttom>
+                    </div>   
             </div>
-            <div class="col-md-4">
-                <button type="button" onclick="location.href='recipeAdd.php'">ajoute</button>
-            </div>
-            <div class="col-md-4">
-                <h3>plan your party</h3>
-            </div>
-            
-        </div>
         </div>
         <?php
         // put your code here

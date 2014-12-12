@@ -17,7 +17,7 @@
     </head>
 <body>
     <script language="javascript" type="text/javascript" src="js/jquery-1.11.0.min.js.js"></script>
-    <form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST">
+    <form action=">" method="POST">
         <div id="ing">
          Ingredients:<input type="text" name="name" id="ingbox">
         </div>

@@ -6,7 +6,7 @@
  */
 class database{
     public static function connect() {
-        $dsn = 'mysql:dbname=users;host=127.0.0.1';
+        $dsn = 'mysql:dbname=info;host=127.0.0.1';
         $user = 'root';
         $password = '';
         $dbh = NULL;
@@ -21,11 +21,11 @@ class database{
     }
 
     public static function close($dsn){
-      mysql_close($dsn);
+      $dsn=null;
 }
 
     public static function find($lg,$dsn){
-        $result=$dsn->query("SELECT `id` FROM `info` WHERE `lg`='$lg' ");
+        $result=$dsn->query("SELECT `id` FROM `users` WHERE `lg`='$lg' ");
         if ($row = $result->fetch(PDO::FETCH_ASSOC)){
             return $row[id];
         }
@@ -33,14 +33,24 @@ class database{
             return error_log("notfound");
         }
     }
+    
+    public static function finding($ing,$dsn){
+        $result=$dsn->query("SELECT `name` FROM `warehouse` WHERE `name`='$ing' ");
+        if($row = $result->fetch(PDO::FETCH_ASSOC)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
     public static function check($lg,$pw,$dsn){
-        $result=$dsn->query("SELECT `id` FROM `info` WHERE `lg`='$lg' AND `pw`=SHA1('$pw') ");
+        $result=$dsn->query("SELECT `id` FROM `users` WHERE `lg`='$lg' AND `pw`=SHA1('$pw') ");
         if ($result->fetch(PDO::FETCH_ASSOC)){
             return true;
          }
         else{
-            echo "Login or password error!";
+            return false;
         }
         
     }

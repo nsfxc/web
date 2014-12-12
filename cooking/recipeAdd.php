@@ -20,6 +20,9 @@
     <form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST">
         <div id="ing">
          Ingredients:<input type="text" name="name" id="ingbox"><br>
+         Amount:<input type="text" name="amount" id="ingamount"><br>
+         <div id="message"></div>
+         <div id="addin"></div>
         </div>
         <div id="met">
             Cooking methods:<input type="text" name="methode"><br>

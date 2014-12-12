@@ -5,13 +5,15 @@
  */
 $(document).ready(function(){
     $("#user").blur(function(){
-        $("#regis").append('<p>username existed, please choose another name</p>');
         var name=$(this).val();
         var changeURL="Confirm.php?action=check&conf=regis&ingname="+name;
             $.get(changeURL,function(str){
                 if(str==='1'){
-                    $("#regis").append('<p>username existed, please choose another name</p>');
-                    $("#user").empty();
+                    $("#message").html('<p>username existed, please choose another name</p>');
+                    $("#user").val("");
+                }
+                else{
+                    $("#message").html('');
                 }
             });
     });

@@ -33,10 +33,8 @@
                         $("#message").html('');
                     });
                 }
-                else{
-                    var st='<input type="button" id='+name[nb-1]+'value="X">'+name[nb-1];
-                    $("#ing").append(st);
-                };
+                var st='<input type="button" id='+name[nb-1]+'value="X">'+name[nb-1];
+                $("#ing").append(st);
             });
         });
         $("#met").prepend('<input type="button" id="adding" value="Add Ingredients"/><br/>');

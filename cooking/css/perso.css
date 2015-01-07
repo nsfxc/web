@@ -24,3 +24,141 @@ title{
         color:green;
     }
 }
+
+body{
+	font-size: 14px;
+	background-color: #FFFF99;
+}
+
+body .navbar{
+	position: fixed;
+	border-radius:0;
+	position:fixed;
+	width:100%;
+	padding:0 20px;
+	z-index: 100;
+	font-size: 40px;
+}
+
+.nav{
+	font-size: 14.5px;
+}
+.background{
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom:0;
+	background: 50% 50% no-repeat;
+	-webkit-background-size:cover;
+	-moz-background-size:cover;
+	-o-background-size:cover;
+	background-size:cover;
+}
+
+.header .background{
+	padding: 150px;
+	background-image:url("img/headerpage.png");
+	height: 80px; 
+	z-index: -1;
+}
+
+.headerhome .background{
+	background-image:url("img/headerhome.png");
+	height: 360px; 
+	z-index: -1;
+}
+
+.header-text{
+	color:#bbbbbb;
+	font-family: "Zapf Chancery";
+}
+.jumbotron{
+	padding: 0;
+	margin:0;
+	color:#777777;
+	background:#FFFF99;
+}
+
+.jumbotron h2{
+	color: #fa59ff;
+	font-family: "Zapf Chancery";
+	font-size:40px;
+
+}
+.section-padding{
+	padding-top:350px;
+}
+.showcase-box{
+	height:320px;
+	padding:2px;
+}
+
+.showcase-item{
+	color:#777777;
+	padding:40px;
+	height: 100%;
+	width: 100%;
+}
+.grey{
+	color:#777777;
+}
+
+.menu-padding{
+	padding-top: 300px;
+}
+
+.bottom-menu{
+	background: #e2e2e2;
+	color:#bcc379;
+	padding:9px 0 42px;
+	margin:150px 0 0 0;
+}
+
+.bottom-menu .navbar-brand{
+	font-size:20 px;
+	padding:0;
+}
+
+.bottom-menu .title{
+	font-size:13px;
+	font-weight: 700;
+	margin-top:0;
+}
+
+.bottom-menu a{
+	color:inherit;
+}
+.active .bottom-menu a,
+.bottom-menu a:hover,
+.bottom-menu a:focus{
+	color:#e47054;
+	text-decoration:none;
+};
+
+.bottom-menu .bottom-links{
+	font-size:14px;
+	line-height: 1.286;
+}
+
+.bottom-links{
+	margin: 0;
+	padding:0;
+	list-style: none;
+}
+
+.bottom-links li{
+	display: block;
+	float:left;
+	margin:0 20px 0 0;
+}
+
+.recipe{
+	padding:30px 20px 20px 10px;
+	background: white;
+	color:#777777;
+}
+
+.recipe p{
+	color:#ffffff;
+}

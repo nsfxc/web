@@ -24,8 +24,8 @@ class database{
       $dsn=null;
 }
 
-    public static function find($lg,$dsn){
-        $result=$dsn->query("SELECT `id` FROM `users` WHERE `lg`='$lg' ");
+    public static function finduserid($username,$dsn){
+        $result=$dsn->query("SELECT `id` FROM `users` WHERE `username`='$username' ");
         if ($row = $result->fetch(PDO::FETCH_ASSOC)){
             return $row[id];
         }
@@ -35,7 +35,27 @@ class database{
     }
     
     public static function finding($ing,$dsn){
-        $result=$dsn->query("SELECT `name` FROM `warehouse` WHERE `name`='$ing' ");
+        $result=$dsn->query("SELECT `name` FROM `ingredients` WHERE `name`='$ing' ");
+        if($row = $result->fetch(PDO::FETCH_ASSOC)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+        public static function findingid($name,$dsn){
+        $result=$dsn->query("SELECT `id` FROM `ingredients` WHERE `name`='$name' ");
+        if ($row = $result->fetch(PDO::FETCH_ASSOC)){
+            return $row[id];
+        }
+        else{
+            return error_log("notfound");
+        }
+    }
+    
+    
+    public static function finduser($user,$dsn){
+        $result=$dsn->query("SELECT `username` FROM `users` WHERE `username`='$user' ");
         if($row = $result->fetch(PDO::FETCH_ASSOC)){
             return true;
         }
@@ -44,17 +64,18 @@ class database{
         }
     }
     
-    public static function finduser($user,$dsn){
-        $result=$dsn->query("SELECT `lg` FROM `users` WHERE `lg`='$user' ");
+    public static function findrecip($recip,$dsn){
+        $result=$dsn->query("SELECT `name` FROM `recip` WHERE `name`='$recip' ");
         if($row = $result->fetch(PDO::FETCH_ASSOC)){
-            return true;
+            return $row[id];
         }
         else{
             return false;
         }
     }
+    
     public static function check($lg,$pw,$dsn){
-        $result=$dsn->query("SELECT `id` FROM `users` WHERE `lg`='$lg' AND `pw`=SHA1('$pw') ");
+        $result=$dsn->query("SELECT `id` FROM `users` WHERE `username`='$lg' AND `password`=SHA1('$pw') ");
         if ($result->fetch(PDO::FETCH_ASSOC)){
             return true;
          }

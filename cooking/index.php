@@ -16,35 +16,53 @@ and open the template in the editor.
         <title>welcome page</title>
     </head>
     <body>
+        <div class="headerhome">
+            <div class="background">&nbsp;</div>
+            <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+            </div>
+        </div>
         <script language="javascript" type="text/javascript" src="js/jquery-1.11.0.min.js.js"></script>
         <div class="container">
-        <div class="row">
-            <div class="col-md-8 title">
-               <h2> Little Cooker</h2>
-            </div>
-            <div id="regis" class="col-md-4">
-                    Login:<input type="text" name="login" class="input" id="user"><br>
-                    Password:<input type="password" name="pw" class="input" id="pass">
-                    <br><br>
-                    <input type="submit" id="subb" value="submit"> 
-                <form action="userAdd.php" method="POST"><input type="submit" value="sign up"></form>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <h3>cook your self</h3>   
-            </div>
-            <div class="col-md-4">
-                <button type="button" onclick="location.href='recipeAdd.php'">ajoute</button>
-            </div>
-            <div class="col-md-4">
-                <h3>plan your party</h3>
-            </div>
-            
-        </div>
+            <section class="section-padding">
+                <div class="jumbotron text-center">
+                    <h2><span class="grey">Welcome to our</span> KITCHEN</h2>
+                    <p>Wanna cook yourself? Let's start from now!</p>
+                </div>
+                <div class="jumbotron text-center">
+                    <div class="row">
+                        <div class="showcase-box col-md-4">
+                            <div class="showcase-itm">
+                                <a href='plan.php'><img src="css/img/icon1.png"></a>
+                                <p>
+                                    A recipe designed for you!
+                                </p>
+                            </div>
+                        </div>
+                        <div class="showcase-box col-md-4">
+                            <div class="showcase-itm">
+                                <a href='recipe.php'><img src="css/img/icon2.png"></a>
+                                <p>
+                                    Prepare an unforgetful party!
+                                </p>
+                            </div>
+                        </div>
+                        <div class="showcase-box col-md-4">
+                            <div>
+                                <a href='recipeAdd.php'><img src="css/img/icon3.png"></a>
+                                <p>
+                                    Share your excellent meals with others!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
         <?php
-        // put your code here
+            require("layout.php");
+            echo $footer;
         ?>
     </body>
 </html>

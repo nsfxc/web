@@ -8,7 +8,7 @@ require ('functions.php');
 if(isset($_POST['submit'])){
     if (isset($_POST['name'])&&  isset($_POST['catalog'])){
         $con =  database::connect();
-        $str = "INSERT INTO warehouse (`name`, `catalog`) VALUES('$_POST[name]', '$_POST[catalog]')";
+        $str = "INSERT INTO ingredients (`name`, `type`) VALUES('$_POST[name]', '$_POST[catalog]')";
         $con->query($str);
         $con=null;
         
@@ -25,7 +25,11 @@ if(isset($_POST['submit'])){
         <title>ingredient addition page</title>
     </head>
     <body>
-        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+        <?php
+        require("layout.php");
+        echo $header;
+        ?>
+        <form action="ingrdAdd.php" method="post">
             name:<input type="text" name="name"><br>
             type:<select name="catalog">
                 <option value="vegetable" selected>vegetable</option>
@@ -36,13 +40,10 @@ if(isset($_POST['submit'])){
             </select><br>
             <input type="submit" name="submit" value="submit">
         </form>
+    <?php
+        require("layout.php");
+        echo $fooder;
+                ?>
     </body>
-<?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
 </html>

@@ -19,13 +19,27 @@
                     $dsn=  database::connect();
                     $result=$dsn->query("SELECT * FROM `recipes` ");
                     while($row = $result->fetch(PDO::FETCH_ASSOC)){
+                        echo "<div class=recipe>";
                         echo $row['name'];
-                        $ing=$dsn->query("SELECT * FROM `recipesingredients` WHERE `recipe`=$row[id]");
+                        echo"<br><h4>Ingredients</h4><br>";
+                        $id=$row['id'];
+                        $ing=$dsn->query("SELECT * FROM `recipesingredients` WHERE `recipe`='$id' ");
+                        echo"<table class=ingredient>";
                         while ($rowing=$ing->fetch(PDO::FETCH_ASSOC)){
-                            echo $rowing[ing];
-                            echo $rowing[amount];
+                            $id=$rowing['ingredient'];
+                            $ingname=$dsn->query("SELECT * FROM `ingredients` WHERE `id`='$id' ");
+                            $name=$ingname->fetch(PDO::FETCH_ASSOC);
+                            echo"<tr><td>";
+                            echo $name['name'];
+                            echo"</td><td>";
+                            echo $rowing['amount'];
+                            echo"</td></tr>";
                         };
-                        echo $row['methode'];
+                        echo"</table><br>Method:<br>";
+                        echo '<p class=method>';
+                        echo $row["method"];
+                        echo '</p>';
+                        echo "</div>";
                     };
                     $dsn=null;
                 ?>

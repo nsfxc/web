@@ -6,8 +6,8 @@
  */
 class database{
     public static function connect() {
-        $dsn = 'mysql:dbname=info;host=127.0.0.1';
-        $user = 'root';
+        $dsn = 'mysql:dbname=cooking;host=localhost';
+        $user = 'czx';
         $password = '';
         $dbh = NULL;
         try {
@@ -27,7 +27,7 @@ class database{
     public static function finduserid($username,$dsn){
         $result=$dsn->query("SELECT `id` FROM `users` WHERE `username`='$username' ");
         if ($row = $result->fetch(PDO::FETCH_ASSOC)){
-            return $row[id];
+            return $row['id'];
         }
         else{
             return error_log("notfound");
@@ -46,7 +46,7 @@ class database{
         public static function findingid($name,$dsn){
         $result=$dsn->query("SELECT `id` FROM `ingredients` WHERE `name`='$name' ");
         if ($row = $result->fetch(PDO::FETCH_ASSOC)){
-            return $row[id];
+            return $row['id'];
         }
         else{
             return error_log("notfound");
@@ -67,7 +67,7 @@ class database{
     public static function findrecip($recip,$dsn){
         $result=$dsn->query("SELECT `name` FROM `recip` WHERE `name`='$recip' ");
         if($row = $result->fetch(PDO::FETCH_ASSOC)){
-            return $row[id];
+            return $row['id'];
         }
         else{
             return false;

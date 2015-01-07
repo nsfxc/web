@@ -2,9 +2,9 @@
     require ('functions.php');
     if (isset($_POST['submit'])){
         $name=$_POST['name'];
-        $method=$_POST['methode'];
+        $method=$_POST['method'];
         $con =  database::connect();
-        $str = "INSERT INTO recipes (`name`, `methode`) VALUES('$name', '$methode')";
+        $str = "INSERT INTO recipes (`name`, `method`) VALUES('$name', '$method')";
         $con->query($str);
         $con=null;
     }
@@ -94,7 +94,7 @@
                 </table>
                 <a href="javascript:addIng()">add</a> 
                 <div id="met">
-                    Cooking methods:<input type="text" name="methode"><br>
+                    Cooking methods:<input type="text" name="method"><br>
                 </div>
                 <div id="subm">
                     <input type="submit" value="submit" name="submit"><br> 

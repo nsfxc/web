@@ -1,0 +1,180 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 13 avr. 2014, 09:14:23
+    Author     : olivierserre
+*/
+
+
+[class*="col-"].gris {
+    background-color: grey;
+    border:solid 1px white;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+title{
+    background-color:yellow;
+    border:solid 2px white;
+    padding:5px 5px 5px 5px;
+    h2{
+        color:green;
+    }
+}
+
+body{
+	font-size: 14px;
+	background-color: #FFFF99;
+}
+
+body .navbar{
+	position: fixed;
+	border-radius:0;
+	position:fixed;
+	width:100%;
+	padding:0 20px;
+	z-index: 100;
+	font-size: 40px;
+}
+
+.nav{
+	font-size: 14.5px;
+}
+.background{
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom:0;
+	background: 50% 50% no-repeat;
+	-webkit-background-size:cover;
+	-moz-background-size:cover;
+	-o-background-size:cover;
+	background-size:cover;
+}
+
+.header .background{
+        padding-top: 100px;
+        height: 200px;
+	background-image:url("img/Little Cooker.png"); 
+        background-repeat: no-repeat;
+        background-position: left;
+        background-size: 400px 100px;
+	z-index: -1;
+}
+
+.headerhome .background{
+	background-image:url("img/headerhome.png");
+	height: 360px; 
+	z-index: -1;
+}
+
+.header-text{
+	color:#bbbbbb;
+	font-family: "Zapf Chancery";
+}
+.jumbotron{
+	padding: 0;
+	margin:0;
+	color:#777777;
+	background:#FFFF99;
+}
+
+.jumbotron h2{
+	color: #fa59ff;
+	font-family: "Zapf Chancery";
+	font-size:40px;
+
+}
+.section-padding{
+	padding-top:350px;
+}
+.showcase-box{
+	height:320px;
+	padding:2px;
+}
+
+.showcase-item{
+	color:#777777;
+	padding:40px;
+	height: 100%;
+	width: 100%;
+}
+.grey{
+	color:#777777;
+}
+
+.menu-padding{
+	padding-top: 100px;
+}
+
+.bottom-menu{
+	background: #e2e2e2;
+	color:#bcc379;
+	padding:9px 0 42px;
+	margin:150px 0 0 0;
+}
+
+.bottom-menu .navbar-brand{
+	font-size:20 px;
+	padding:0;
+}
+
+.bottom-menu .title{
+	font-size:13px;
+	font-weight: 700;
+	margin-top:0;
+}
+
+.bottom-menu a{
+	color:inherit;
+}
+.active .bottom-menu a,
+.bottom-menu a:hover,
+.bottom-menu a:focus{
+	color:#e47054;
+	text-decoration:none;
+};
+
+.bottom-menu .bottom-links{
+	font-size:14px;
+	line-height: 1.286;
+}
+
+.bottom-links{
+	margin: 0;
+	padding:0;
+	list-style: none;
+}
+
+.bottom-links li{
+	display: block;
+	float:left;
+	margin:0 20px 0 0;
+}
+
+.recipe{
+	padding:30px 20px 20px 10px;
+        margin-left:auto;
+        margin-right:auto;
+        margin-bottom: 20px;
+        margin-top: 20px;
+        width:70%;
+	background: white;
+	color:#777777;
+        font-size:25px;
+}
+
+.recipe .ingredient{
+    font-size:18px;
+    width:100%;
+    text-align: left;
+    color:#777777;
+}
+.recipe .method{
+    font-size:18px;
+    color:#777777;
+}

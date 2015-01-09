@@ -14,16 +14,16 @@ $header='<header>
 			<li><a href="recipe.php">Find Recipes</a></li>
 			<li><a href="recipeAdd.php">Share Recipes</a></li>
                     </ul>
-                    <ul class="nav navbar-nav navbar-right">
-			<?php
-                            if (isset($_SESSION["user"])){
-				echo $_SESSION["user""];
-                            }else{
-				echo login;
-				echo register;
-                            }
-			?>
-                    </ul>
+                    <ul class="nav navbar-nav navbar-right">';
+function user(){
+    if (isset($_SESSION["user"])){
+		echo $_SESSION["user"];
+        }else{
+		echo "login";
+		echo "register";
+     }
+}
+$headerlast='       </ul>
 		</div>
             </nav>
 	</header>

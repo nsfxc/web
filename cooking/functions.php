@@ -30,7 +30,7 @@ class database{
             return $row['id'];
         }
         else{
-            return error_log("notfound");
+            return -1;
         }
     }
     
@@ -49,10 +49,21 @@ class database{
             return $row['id'];
         }
         else{
-            return error_log("notfound");
+            return -1;
         }
     }
     
+    public static function lasting($dsn){
+        $result=$dsn->query("SELECT * FROM `ingredients`");
+        $ing=$result->fetchALL();
+        return sizeof($ing);
+    }
+    
+    public static function lastrecip($dsn){
+        $result=$dsn->query("SELECT * FROM `recipes`");
+        $recip=$result->fetchALL();
+        return sizeof($recip);
+    }
     
     public static function finduser($user,$dsn){
         $result=$dsn->query("SELECT `username` FROM `users` WHERE `username`='$user' ");

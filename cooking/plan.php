@@ -14,6 +14,8 @@
 <?php
     require("layout.php");
     echo $header;
+    user();
+    echo $headerlast;
 ?>
 		<div class="header">
 			<div class="background">&nbsp;</div>

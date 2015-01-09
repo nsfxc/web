@@ -77,10 +77,10 @@ body .navbar{
 	font-family: "Zapf Chancery";
 }
 .jumbotron{
-	padding: 0;
-	margin:0;
+	margin-left:auto;
 	color:#777777;
 	background:#FFFF99;
+        font-size:15px;
 }
 
 .jumbotron h2{
@@ -88,6 +88,28 @@ body .navbar{
 	font-family: "Zapf Chancery";
 	font-size:40px;
 
+}
+
+.jumbotron .ingredient th{
+    font: bold 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+    color: #4f6b72;
+    border-right: 1px solid #C1DAD7;
+    border-bottom: 1px solid #C1DAD7;
+    border-top: 1px solid #C1DAD7;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: left;
+    padding: 6px 6px 6px 12px;
+    background: #CAE8EA no-repeat;
+}
+
+jumbotron .ingredient td{
+    border-right: 1px solid #C1DAD7;
+    border-bottom: 1px solid #C1DAD7;
+    background: #fff;
+    font-size:11px;
+    padding: 6px 6px 6px 12px;
+    color: #4f6b72;
 }
 .section-padding{
 	padding-top:350px;
@@ -178,3 +200,52 @@ body .navbar{
     font-size:18px;
     color:#777777;
 }
+.recipeadd{
+    position: relative;
+    margin-left:auto;
+    margin-right:auto;
+    width:70%;
+    background:white;
+    color:#777777;
+    font-size:25px;
+}
+.recipeadd .ingredient{
+    font-size:18px;
+    width:100%;
+    text-align: left;
+    color:#777777;
+}
+.recipeadd .name{
+    color:#777777;
+    font-size:25px;
+}
+
+.recipeadd .method{
+    color:#777777;
+    font-size:18px;
+}
+
+.pagination {
+	padding: 3px;
+	margin-left: auto;
+        margin-right: auto;
+}
+
+.pagination a {
+	padding: 2px 5px 2px 5px;
+	margin: 2px;
+	border: 1px solid #AAAADD;
+	
+	text-decoration: none; 
+	color: #000099;
+}
+
+.pagination span {
+	padding: 2px 5px 2px 5px;
+	margin: 2px;
+		border: 1px solid #000099;
+		
+		font-weight: bold;
+		background-color: #000099;
+		color: #FFF;
+	}

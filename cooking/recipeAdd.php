@@ -1,14 +1,4 @@
-<?php
-    require ('functions.php');
-    if (isset($_POST['submit'])){
-        $name=$_POST['name'];
-        $method=$_POST['method'];
-        $con =  database::connect();
-        $str = "INSERT INTO recipes (`name`, `method`) VALUES('$name', '$method')";
-        $con->query($str);
-        $con=null;
-    }
-?>
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -21,87 +11,115 @@
     </head>
     <script type="text/javascript">
         function addIng(){
-            var rowLength=$("#tableing tr").length+1;
-            var rowId="row"+rowLength; 
+            var rowLength=$("#tableing tr").length;
+            var rowId=rowLength; 
             var newTr = tableing.insertRow();   
             var newTd0 = newTr.insertCell();  
             var newTd1 = newTr.insertCell();  
             var newTd2 = newTr.insertCell();  
-            newTd0.innerHTML = "<input type='text' id='ing(\""+rowId+"\")'/>";   
-            newTd1.innerHTML = "<input type='text' id='amount(\""+rowId+"\")'/>";  
+            newTd0.innerHTML = "<input type='text' name='ing"+rowId+"' id='ing"+rowId+"' form='myform'/>";   
+            newTd1.innerHTML = "<input type='text' name='amount"+rowId+"' id='amount"+rowId+"' form='myform'/>";  
             newTd2.innerHTML= "<input type='button' name='delete' value='delete' onclick='deleteRow(\""+rowId+"\")'/>";
         } 
         function deleteRow(rowId){
             tableing.deleteRow(rowId);
-        }
-        function GetValue(){
-                var value="";
-                $("#tableing tr").each(function(i){
-                if (i>=0){
-                    $(this).children().each(function(j){
-                            value+=$(this).children().eq(0).val()+',';
-                    });
-                    value=value.substr(0,value.length-1)+"#";
-                };
-                });
-            value=value.substr(0,value.length);
-            ReceiveValue(value);
-        }
-        function ReceiveValue(str){
-            var S=str.split('#');
-            if (Str[0]!==""){
-                for (var i=0;i<S.length-1;i++){
-                    var value=S[i].split(',');
-                    var ing=value[0];
-                    var changeURL="Confirm.php?action=check&conf=ingr&ingname="+ing;
-                    $.get(changeURL,function(str){
-                        if(str==="0"){
-                            var newr=tableing.insertRow();
-                            var newc1=newr.insertCell();
-                            var newc2=newr.insertCell();
-                            newc1.innerTEXT="Please ajoute ingredient"+ing;
-                            newc2.innerHTML='<input type="button" id="addin" value="Add"/>';
-                            $("#addin").click(function(){
-                                window.location.href='ingrdAdd.php';
-                            });
-                        }
-                    });
-                };
-           };
         }
     </script>
     <body>  
         <?php
         require("layout.php");
         echo $header;
+        user();
+        echo $headerlast;
         ?>
         <section class="menu-padding">
             <div class="jumbotron">
-            <form action='recipe.php' method="POST">
-                name:<input type="text" name="name" id="name"><br>
-                <table>
+            <form action='<?php echo $_SERVER['PHP_SELF'];?>' method="POST" id="myform">
+                Name:<input type="text" name="name" id="name"><br>
+                Occasion:
+                <select name='occasion'>
+                    <option value="Breakfast">Breakfast</option>
+                    <option value="Meal">Meal</option>
+                    <option value="Teatime">Teatime</option>
+                    <option vlaue="Party">Party</option>
+                </select>
+                <br>
+                <table id="tableing" class='ingredient'>
                     <tr>
-                        <td>ingredients</td>
-                        <td>amount</td>
-                    </tr>   
-                </table>
-                <table id="tableing">
+                        <th>Ingredient name</th>
+                        <th>Amount</th>
+                    </tr> 
                     <tr>
-                        <td><input type="text" id="ing1"></td>
-                        <td><input type="text" id="amount1"></td>
+                        <td><input type="text" name="ing0" id="ing0"></td>
+                        <td><input type="text" name="amount0" id="amount0"></td>
                         <td><input type="button" name="delete" value="delete" onclick="deleteRow(0)"></td>
                     </tr>
                 </table>
-                <a href="javascript:addIng()">add</a> 
-                <div id="met">
-                    Cooking methods:<input type="text" name="method"><br>
-                </div>
+                <a href="javascript:addIng()">Add an ingredient</a><br>
+                Method:<br>
+                <textarea rows="10" cols="50" name="method">
+                    Please write your methods here...
+                </textarea>
                 <div id="subm">
-                    <input type="submit" value="submit" name="submit"><br> 
+                    <input type="submit" value="submit" name="submit" onclick="GetValue()"><br> 
                 </div>
             </form>
+            <div id="message"></div>
             </div>
         </section>
+    <?php
+    require ('functions.php');
+    if (isset($_POST['submit'])){
+        $name=$_POST['name'];
+        $method=$_POST['method'];
+        $occasion=$_POST['occasion'];
+        $con =  database::connect();
+        $str = "INSERT INTO recipes (`name`, `method`,`occassion`) VALUES('$name', '$method','$occasion')";
+        $con->query($str);
+        $recipno=database::lastrecip($con);
+        $no=0;
+        $ingno="ing";
+        $ingno.=(string)$no;
+        $amountno="amount";
+        $amountno.=(string)$no;
+echo <<<END
+        <p>Your recipe has been added!</p>
+        <div class="recipeadd">
+            <div class="name">
+                {$name}
+            </div>
+            <br>
+            <table class="ingredient">
+                <tr><td>Ingredient name</td><td>Amount</td></tr>
+END;
+        while(isset($_POST[$ingno])){
+            $ingname=$_POST[$ingno];
+            $amount=$_POST[$amountno];
+            $id=database::findingid($ingname,$con);
+            echo "<tr><td>{$ingname}</td><td>$amount</td></tr>";
+            if($id!= (-1)){
+                $str="INSERT INTO recipesingredients (`recipe`, `ingredient`, `amount`) VALUES('$recipno', '$id','$amount')";
+                $con->query($str);
+            }
+            else{
+                $str="INSERT INTO ingredients (`name`) VALUES('$ingname')";
+                $con->query($str);
+                $id=database::lasting($con);
+                $str="INSERT INTO recipesingredients (`recipe`, `ingredient`,`amount`) VALUES('$recipno', '$id','$amount')";
+                $con->query($str);
+            }
+            $no++;
+            $ingno="ing";
+            $ingno.=(string)$no;
+            $amountno="amount";
+            $amountno.=(string)$no;
+        }
+        $con=null;
+        echo "</table><br>";
+        echo "<div class='method'>Method:<br>{$method}</div></div>";
+    }
+
+?>
     <?php
     require("layout.php");
     echo $footer;

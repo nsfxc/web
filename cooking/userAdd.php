@@ -1,4 +1,13 @@
 <?php
+    session_name("shen");
+// ne pas mettre d'espace dans le nom de session !
+    session_start();
+    if (!isset($_SESSION['initiated'])) {
+        session_regenerate_id();
+        $_SESSION['initiated'] = true;
+    }
+?>
+<?php
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -28,6 +37,14 @@ if(isset($_POST['submit'])){
         <title>register page</title>
     </head>
     <body>
+<?php
+    require("layout.php");
+    echo $header;
+    require("login.php");
+    logInOutForm();
+    echo $headerlast;
+    
+?>
         <script language="javascript" type="text/javascript" src="js/jquery-1.11.0.min.js.js"></script>
         <form action="index.php" method="post">
             <div id="regis">
@@ -38,13 +55,8 @@ if(isset($_POST['submit'])){
             username:<input type="text" name="username"><br>
             <input type="submit" name="submit" value="submit" id="submit">
         </form>
-    </body>
 <?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+echo $footer;
 ?>
+    </body>
 </html>

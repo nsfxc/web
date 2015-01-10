@@ -1,5 +1,13 @@
 <!DOCTYPE html>
-
+<?php
+    session_name("shen");
+// ne pas mettre d'espace dans le nom de session !
+    session_start();
+    if (!isset($_SESSION['initiated'])) {
+        session_regenerate_id();
+        $_SESSION['initiated'] = true;
+    }
+?>
 
 <html>
     <head>
@@ -19,7 +27,7 @@
             var newTd0 = newTr.insertCell();   
             var newTd2 = newTr.insertCell();  
             newTd0.innerHTML = "<input type='text' name='ing"+rowId+"' id='ing"+rowId+"' form='myform'/>";   
-            newTd2.innerHTML= "<input type='button' name='delete"+rowId+"' id='delete"+rowId+"' value='delete' onclick='deleteRow(\""+rowId+"\")'/>";
+            newTd2.innerHTML= "<input class='btn btn-default' type='button' name='delete"+rowId+"' id='delete"+rowId+"' value='delete' onclick='deleteRow(\""+rowId+"\")'/>";
         } 
         function deleteRow(rowId){
             tableing.deleteRow(rowId);
@@ -33,7 +41,7 @@
                 var j=i-1;
                 var newid="ing"+j.toString();
                 var newdelete="delete"+j.toString();
-                var newclick="delete("+j.toString()+")";
+                var newclick="deleteRow("+j.toString()+")";
                 ingobj.setAttribute("id",newid);
                 ingobj.setAttribute("name",newid);
                 deleteobj.setAttribute("id",newdelete);
@@ -45,41 +53,48 @@
     <body>
 <?php
     require("layout.php");
-    require("connect.php");
+    require("login.php");
     echo $header;
-    user();
+    logInOutForm();
     echo $headerlast;
 ?>
     <section class="menu-padding">
-	<div class="jumbotron vertical-center">
-            <form action='<?php echo $_SERVER['PHP_SELF'];?>' method="POST" id="myform">
-                Name:<input type="text" name="name" id="name"><br>
-                Occasion:
-                <select name='occasion'>
-                    <option value="Breakfast">Breakfast</option>
-                    <option value="Meal">Meal</option>
-                    <option value="Teatime">Teatime</option>
-                    <option vlaue="Party">Party</option>
-                </select>
+	<div class="container jumbotron">
+            <div class="title">
+                Find Recipes
+            </div>
+            <form class="form-horizontal" action='<?php echo $_SERVER['PHP_SELF'];?>' method="POST" id="myform">
+                <div class="form-inline">
+                    <label for="name">Name</label>
+                    <input class="form-control" type="text" name="name" id="name">
+                    <label for="name">Occasion</label>
+                    <select name='occasion'>
+                        <option value="Breakfast">Breakfast</option>
+                        <option value="Meal">Meal</option>
+                        <option value="Teatime">Teatime</option>
+                        <option vlaue="Party">Party</option>
+                    </select>
+                </div>
                 <br>
-                <table id="tableing">
+                <table class="table-bordered" id="tableing">
                     <tr>
                         <th>Ingredient name</th>
+                        <th></th>
                     </tr> 
                     <tr>
                         <td><input type="text" name="ing1" id="ing1"></td>
-                        <td><input type="button" name="delete1" id="delete1" value="delete" onclick="deleteRow(1)"></td>
+                        <td><input type="button" class="btn btn-default" name="delete1" id="delete1" value="delete" onclick="deleteRow(1)"></td>
                     </tr>
                 </table>
-                <a href="javascript:addIng()">Add an ingredient</a><br>
+                <a href="javascript:addIng()">Add an ingredient</a>
+                <br><br>
                 <div id="subm">
-                    <input type="submit" value="submit" name="submit"><br> 
+                    <input class="btn btn-default" type="submit" value="Search" name="submit"><br> 
                 </div>
             </form>
 	</div>
     </section>
 <?php
-    require("functions.php"); 
     if (isset($_POST['submit'])){
         $con=  database::connect();
         $occasion=$_POST['occasion'];
@@ -130,8 +145,12 @@
                 $i=0;
                 echo "<div class='recipe'>";
                 echo $row[$i]['name'];
+                if (file_exists("recipeimg/".$id)){echo "<img class='image-rounded' src='recipeimg/$id.png'>";}else{
+                    echo"<img src='recipeimg/cooker.png'>";
+                }
+                if ($image==""){$image="default.png";}
                 $ing=$con->query("SELECT * FROM `recipesingredients` WHERE `recipe`='$id' ");
-                echo"<table class='ingredient table'><thead><tr><th>Ingredient Name</th><th>Amount</th><tr><thead>";
+                echo"<table class='table tablebordered'><thead><tr><th>Ingredient Name</th><th>Amount</th><tr><thead>";
                 $rowing=$ing->fetchALL();
                 for($j=0;$j<sizeof($rowing);$j++){
                     $id=$rowing[$j]['ingredient'];
@@ -154,9 +173,7 @@
             echo"NO result!";
         }
         $con=null;
-    }
-
-   
+    };
     echo $footer;
 ?>
 	</body>

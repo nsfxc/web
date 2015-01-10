@@ -1,3 +1,12 @@
+<?php
+    session_name("shen");
+// ne pas mettre d'espace dans le nom de session !
+    session_start();
+    if (!isset($_SESSION['initiated'])) {
+        session_regenerate_id();
+        $_SESSION['initiated'] = true;
+    }
+?><!DOCTYPE html>
 <html>
 	<head>
         <meta charset="UTF-8">
@@ -6,17 +15,19 @@
         <script src="js/jquery.js"></script>
         <script src="js/bootstrap.js"></script>
         <script src="js/registion.js"></script>
-        <title>plan page</title>
+        <title>Show Recipes</title>
     </head>
 	<body>
 <?php
     require("layout.php");
+    require("login.php");
     echo $header;
+    logInOutForm();
     echo $headerlast;
-    ?>
+?>
     <section class="menu-padding">
+        <div class="jumbotron container">
 <?php
-    require("functions.php");
     function show($object,$no,$pag){  
         $dsn= database::connect();
         $result=$dsn->query("SELECT * FROM `recipes` WHERE `occasion`='$object'");
@@ -32,15 +43,21 @@
             $start=0;$page=1;
         }
         if($n==0){
-            echo"No result!";
+            echo"<div class='recipe'>No result!</div>";
         }
         if($start+$limit<=$n){$fin=$start+$limit;}else{$fin=$n;};
             for($i=$start;$i<$fin;$i++ ){
                 echo "<div class='recipe'>";
+                $id=$row[$i]['id'];
                 echo $row[$i]['name'];
+                if(file_exists("recipeimg/".$id.".png")){
+                    echo "<img class='image-rounded' src='recipeimg/$id.png'>";
+                }else{
+                    echo"<img src='recipeimg/cooker.png'>";
+                }
                 $id=$row[$i]['id'];
                 $ing=$dsn->query("SELECT * FROM `recipesingredients` WHERE `recipe`='$id' ");
-                echo"<table class='ingredient table'><thead><tr><th>Ingredient Name</th><th>Amount</th><tr><thead>";
+                echo"<table class='table table-bordered'><thead><tr><th>Ingredient Name</th><th>Amount</th><tr><thead>";
                 $rowing=$ing->fetchALL();
                 for($j=0;$j<sizeof($rowing);$j++){
                     $id=$rowing[$j]['ingredient'];
@@ -80,7 +97,6 @@
             echo $pagination;
             $dsn=null;
     }
-    require("layout.php");
     $breakfast=$_GET['Breakfast'];
     $meal=$_GET['Meal'];
     $teatime=$_GET['Teatime'];
@@ -101,44 +117,52 @@
     }else{$lparty="";}
     if(isset($_GET['Breakfast'])){
         $url=$lmeal."&".$lteatime."&".$lparty;
-        echo "<div class='plan'><a href='recipe.php?$url'>Breakfast-</a>";
+        echo "<div class='occasion'>Breakfast <a href='recipe.php?$url'><span class='glyphicon glyphicon-chevron-up'></span></a>";
         show("Breakfast",$breakfast,$url);
+        echo"</div>";
     }
     else{
         $url="Breakfast=0&".$lmeal."&".$lteatime."&".$lparty;
-        echo "<div class='plan'><a href='recipe.php?$url'>Breakfast+</a>";
+        echo "<div class='occasion'>Breakfast <a href='recipe.php?$url'><span class='glyphicon glyphicon-chevron-down'></span></a>";
+        echo"</div>";
     }
     if(isset($_GET['Meal'])){
         $url=$lbreakfast."&".$lteatime."&".$lparty;
-        echo "<div class='plan'><a href='recipe.php?$url'>Meal-</a>";
+        echo "<div class='occasion'>Meal <a href='recipe.php?$url'><span class='glyphicon glyphicon-chevron-up'></span></a>";
         show("Meal",$meal,$url);
+        echo"</div>";
     }
     else{
         $url="Meal=0&".$lbreakfast."&".$lteatime."&".$lparty;
-        echo "<div class='plan'><a href='recipe.php?$url'>Meal+</a>";
+        echo "<div class='occasion'>Meal <a href='recipe.php?$url'><span class='glyphicon glyphicon-chevron-down'></span></a>";
+        echo "</div>";
     }
     if(isset($_GET['Teatime'])){
         $url=$lbreakfast."&".$lmeal."&".$lparty;
-        echo "<div class='plan'><a href='recipe.php?$url'>Teatime-</a>";
+        echo "<div class='occasion'>Teatime <a href='recipe.php?$url'><span class='glyphicon glyphicon-chevron-up'></span></a>";
         show("Teatime",$teatime,$url);
+        echo "</div>";
     }
     else{
         $url="Teatime=0&".$lbreakfast."&".$lmeal."&".$lparty;
-        echo "<div class='plan'><a href='recipe.php?$url'>Teatime+</a>";
+        echo "<div class='occasion'>Teatime <a href='recipe.php?$url'><span class='glyphicon glyphicon-chevron-down'></span></a>";
+        echo "</div>";
     }
     if(isset($_GET['Party'])){
         $url=$lbreakfast."&".$lteatime."&".$lmeal;
-        echo "<div class='plan'><a href='recipe.php?$url'>Party-</a>";
+        echo "<div class='occasion'>Party <a href='recipe.php?$url'><span class='glyphicon glyphicon-chevron-up'></span></a>";
         show("Party",$party,$url);
+        echo"</div>";
     }
     else{
         $url="Party=0&".$lbreakfast."&".$lteatime."&".$lmeal;
-        echo "<div class='plan'><a href='recipe.php?$url'>Party+</a>";
+        echo "<div class='occasion'>Party <a href='recipe.php?$url'><span class='glyphicon glyphicon-chevron-down'></span></a>";
+        echo"</div>";
     }
-                ?>
+?>
+            </div>
             </section>
 <?php
-    require("layout.php");
     echo $footer;
 ?>
 	</body>

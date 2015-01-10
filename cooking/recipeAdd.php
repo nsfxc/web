@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -19,7 +19,7 @@
             var newTd2 = newTr.insertCell();  
             newTd0.innerHTML = "<input type='text' name='ing"+rowId+"' id='ing"+rowId+"' form='myform'/>";   
             newTd1.innerHTML = "<input type='text' name='amount"+rowId+"' id='amount"+rowId+"' form='myform'/>";  
-            newTd2.innerHTML= "<input type='button' name='delete"+rowId+"' id='delete"+rowId+"' value='delete' onclick='deleteRow(\""+rowId+"\")'/>";
+            newTd2.innerHTML= "<input class='btn btn-default' type='button' name='delete"+rowId+"' id='delete"+rowId+"' value='delete' onclick='deleteRow(\""+rowId+"\")'/>";
         } 
         function deleteRow(rowId){
             tableing.deleteRow(rowId);
@@ -36,7 +36,7 @@
                 var newid="ing"+j.toString();
                 var newamount="amount"+j.toString();
                 var newdelete="delete"+j.toString();
-                var newclick="delete("+j.toString()+")";
+                var newclick="deleteRow("+j.toString()+")";
                 ingobj.setAttribute("id",newid);
                 ingobj.setAttribute("name",newid);
                 amountobj.setAttribute("id",newamount);
@@ -50,24 +50,27 @@
     <body>  
         <?php
         require("layout.php");
-        require("connect.php");
+        require("login.php");
         echo $header;
-        user();
+        logInOutForm();
         echo $headerlast;
         ?>
         <section class="menu-padding">
-            <div class="jumbotron vertical-center">
-            <form action='<?php echo $_SERVER['PHP_SELF'];?>' method="POST" id="myform">
-                Name:<input type="text" name="name" id="name"><br>
-                Occasion:
-                <select name='occasion'>
-                    <option value="Breakfast">Breakfast</option>
-                    <option value="Meal">Meal</option>
-                    <option value="Teatime">Teatime</option>
-                    <option vlaue="Party">Party</option>
-                </select>
+            <div class="jumbotron container">
+                <form class="form-horizontal" action='<?php echo $_SERVER['PHP_SELF'];?>' method="POST" id="myform" enctype="multipart/form-data">
+                <div class="form-inline">
+                    <label for="name">Name</label>
+                    <input class="form-control" type="text" name="name" id="name">
+                    <label for="name">Occasion</label>
+                    <select name='occasion'>
+                        <option value="Breakfast">Breakfast</option>
+                        <option value="Meal">Meal</option>
+                        <option value="Teatime">Teatime</option>
+                        <option vlaue="Party">Party</option>
+                    </select>
+                </div>
                 <br>
-                <table id="tableing" class='table ingredient'>
+                <table id="tableing" class='table-bordered'>
                     <tr>
                         <th>Ingredient name</th>
                         <th>Amount</th>
@@ -75,16 +78,23 @@
                     <tr>
                         <td><input type="text" name="ing1" id="ing1"></td>
                         <td><input type="text" name="amount1" id="amount1"></td>
-                        <td><input type="button" name="delete1" id="delete1" value="delete" onclick="deleteRow(1)"></td>
+                        <td><input class="btn btn-default"type="button" name="delete1" id="delete1" value="delete" onclick="deleteRow(1)"></td>
                     </tr>
                 </table>
                 <a href="javascript:addIng()">Add an ingredient</a><br>
-                Method:<br>
-                <textarea rows="10" cols="50" name="method">
-                    Please write your methods here...
-                </textarea>
-                <div id="subm">
-                    <input type="submit" value="submit" name="submit" > 
+                <div class="form-inline">
+                    <label for="method">Method</label><br>
+                    <textarea rows="10" cols="50" name="method">
+                        Please write your methods here...
+                    </textarea><br>
+                </div>
+                <div class="form-inline">
+                    <label for="image">Upload an image</image>
+                    <input class="btn-file" type="file" name="image" id="image">
+                    <br>
+                    <div id="subm">
+                        <input class="btn btn-default" type="submit" value="Add Recipe" name="submit" > 
+                    </div>
                 </div>
             </form>
             </div>
@@ -92,23 +102,47 @@
     <?php
     require ('functions.php');
     if (isset($_POST['submit'])){
+        if ($_SESSION['loggedin']){
+            $userid=$_SESSION['id'];
+        }
+        else{
+            $userid="";
+        }
+        $recipno=database::lastrecip($con);
+        $target_dir="recipeimg/";
+        $target_file=$target_dir.basename($_FILES["image"]["name"]);
+        $imageFileType=pathinfo($target_file,PATHINFO_EXTENSION);
+        $upload_OK=1;
+        if($_FILES["image"]["size"]>5000000){
+            echo "Image too large!";
+            $upload_OK=0;
+        }
+        if($imageFileType!="png" ){
+            echo"Only PNG files are allowed.";
+            $upload_OK=0;
+        }
+        if($upload_OK!=0){
+            $new=$recipno.".png";
+            move_uploaded_file($_FILES['image']['tmp_name'], $target_file,$new);
+        }else{$new="cooker.png";}
         $name=$_POST['name'];
         $method=$_POST['method'];
         $occasion=$_POST['occasion'];
         $con =  database::connect();
-        $str = "INSERT INTO recipes (`name`, `method`,`occasion`) VALUES('$name', '$method','$occasion')";
+        $str = "INSERT INTO recipes (`name`, `method`,`occasion`,`user`) VALUES('$name', '$method','$occasion','$userid')";
         $con->query($str);
-        $recipno=database::lastrecip($con);
         $no=1;
         $ingno="ing";
         $ingno.=(string)$no;
         $amountno="amount";
         $amountno.=(string)$no;
+        if ($image==""){$image="default.png";}
 echo <<<END
         <p>Your recipe has been added!</p>
         <div class="recipeadd">
             <div class="name">
                 {$name}
+                <img class="img-rounded" src="recipeimg/$new">
             </div>
             <div class="ocassion">
                 {$occasion}
@@ -146,7 +180,6 @@ END;
 
 ?>
     <?php
-    require("layout.php");
     echo $footer;
         ?>
     </body>  

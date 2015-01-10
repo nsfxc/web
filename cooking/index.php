@@ -50,14 +50,17 @@ if(isset($_POST['submit'])){
             </ul>
             </div>
         </div>
-        <?php
+        <script language="javascript" type="text/javascript" src="js/jquery-1.11.0.min.js.js"></script>
+            <section class="section-padding">
+             <div class="navbar-right">
+<?php
             require_once("login.php");
             logInOutForm();
-        ?>
-        <script language="javascript" type="text/javascript" src="js/jquery-1.11.0.min.js.js"></script>
-        <div class="container">
-            <section class="section-padding">
+?>
+            </div>
+                <div class="container">
                 <div class="jumbotron text-center">
+       
                     <h2><span class="grey">Welcome to our</span> KITCHEN</h2>
                     <p>Wanna cook yourself? Let's start from now!</p>
                     <div class="row">
@@ -87,8 +90,8 @@ if(isset($_POST['submit'])){
                         </div>
                     </div>
                 </div>
+                </div>
             </section>
-        </div>
         <?php
             require("layout.php");
             echo $footer;

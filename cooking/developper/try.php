@@ -16,8 +16,39 @@
             echo $footer;
         ?>
     </body>
+            <form action='<?php echo $_SERVER['PHP_SELF'];?>' method="POST" id="myform">
+                Name:<input type="text" name="name" id="name"><br>
+                Occasion:
+                <select name='occasion'>
+                    <option value="Breakfast">Breakfast</option>
+                    <option value="Meal">Meal</option>
+                    <option value="Teatime">Teatime</option>
+                    <option vlaue="Party">Party</option>
+                </select>
+                <br>
+                <table id="tableing" class='table ingredient'>
+                    <tr>
+                        <th>Ingredient name</th>
+                        <th>Amount</th>
+                    </tr> 
+                    <tr>
+                        <td><input type="text" name="ing1" id="ing1"></td>
+                        <td><input type="text" name="amount1" id="amount1"></td>
+                        <td><input type="button" name="delete1" id="delete1" value="delete" onclick="deleteRow(1)"></td>
+                    </tr>
+                </table>
+                <a href="javascript:addIng()">Add an ingredient</a><br>
+                Method:<br>
+                <textarea rows="10" cols="50" name="method">
+                    Please write your methods here...
+                </textarea>
  
+                <div id="subm">
+                    <input type="submit" value="submit" name="submit" > 
+                </div>
+            </form>
     </html> 
+    <script>
                             if(str==="-1"){
                             var newr=tableing.insertRow();
                             var newc1=newr.insertCell();
@@ -73,3 +104,5 @@ function GetValue(){
                     $("#message").append(method);
                 };
            };
+           
+           </script>

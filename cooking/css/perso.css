@@ -13,7 +13,32 @@ body{
 	font-size: 14px;
 	background-color: #FFFF99;
 }
-
+.form-group{
+    margin-top: 6px;
+    margin-right:16px;
+}
+.register {
+    width:auto;
+}
+.btn{
+    color:#777777;
+    
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
 .navbar{
 	position: fixed;
 	border-radius:0;
@@ -79,7 +104,9 @@ body{
     text-align: left;
     color:#777777;
 }
-
+.jumbotron a{
+    color:inherit;
+}
 .vertical-center {
   min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
   min-height: 100vh; /* These two lines are counted as one :-)       */
@@ -88,7 +115,7 @@ body{
 }
 
 .section-padding{
-	padding-top:380px;
+	padding-top:360px;
 }
 .showcase-box{
 	height:320px;
@@ -131,13 +158,14 @@ body{
         margin-left:auto;
         margin-right:auto;
         margin-bottom: 20px;
-        margin-top: 20px;
         width:70%;
 	background: white;
 	color:#777777;
         font-size:25px;
 }
-
+.recipe a{
+    color:inherit;
+}
 .recipe .ingredient{
     font-size:18px;
     width:100%;
@@ -172,4 +200,23 @@ body{
     color:#777777;
     font-size:18px;
 }
-
+.recipe image{
+    width: 146px;
+    height: 144px;
+}
+.occasion{
+    border-bottom: 1px solid;
+    margin-left:10px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    color:#777777;
+    background:#FFFF99;
+    font-size:25px;
+    font-style: italic;
+}
+.occasion span{
+    font-size: 18px;
+}
+.occasion a{
+    color:inherit;
+}

@@ -2,16 +2,16 @@
     function printLoginForm(){
         $p='PHP_SELF';
 echo <<<END
-        <form action="$_SERVER[$p]?todo=login" method="post">
-            <p>Email : <input type="text" name="email" placeholder="yixin" required /></p>
-            <p>passward :
-            <input name="password" type="password" required />
-            </p>
-            <p><input type="submit" value="Submit" /></p>
+        <form id="form1" action="$_SERVER[$p]?todo=login" method="post">
         </form>
-        <form action="userAdd.php" method="POST">
-            <p><input type="submit" value="Registion"></p>
+        <form  action="userAdd.php" method="POST" id="form2">    
         </form>
+        <div class="form-group">
+            <input class="register" type="text" name="email" placeholder="E-mail" form="form1" required />
+            <input class="register" name="password" type="password" placeholder="Password" form="form1" required />
+            <input class="btn btn-default btn-sm" type="submit" form="form1" value="Sign In">
+            <input class="btn btn-default btn-sm" type="submit" form="form2" value="Register">
+        </div>
 END;
     }
     function printLogoutForm(){

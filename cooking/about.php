@@ -14,7 +14,6 @@
 <?php
     require("layout.php");
     echo $header;
-    user();
     echo $headerlast;
 ?>
 

@@ -29,8 +29,6 @@ and open the template in the editor.
                 <div class="jumbotron text-center">
                     <h2><span class="grey">Welcome to our</span> KITCHEN</h2>
                     <p>Wanna cook yourself? Let's start from now!</p>
-                </div>
-                <div class="jumbotron text-center">
                     <div class="row">
                         <div class="showcase-box col-md-4">
                             <div class="showcase-itm">

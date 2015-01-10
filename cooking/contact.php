@@ -26,6 +26,7 @@
 <?php
     require("layout.php");
     echo $header;
+    echo $headerlast;
 ?>
             <section class="menu-padding">
             <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="POST">

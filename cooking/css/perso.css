@@ -9,28 +9,12 @@ and open the template in the editor.
 */
 
 
-[class*="col-"].gris {
-    background-color: grey;
-    border:solid 1px white;
-    padding-top: 15px;
-    padding-bottom: 15px;
-}
-
-title{
-    background-color:yellow;
-    border:solid 2px white;
-    padding:5px 5px 5px 5px;
-    h2{
-        color:green;
-    }
-}
-
 body{
 	font-size: 14px;
 	background-color: #FFFF99;
 }
 
-body .navbar{
+.navbar{
 	position: fixed;
 	border-radius:0;
 	position:fixed;
@@ -77,42 +61,34 @@ body .navbar{
 	font-family: "Zapf Chancery";
 }
 .jumbotron{
-	margin-left:auto;
 	color:#777777;
 	background:#FFFF99;
         font-size:15px;
 }
 
 .jumbotron h2{
-	color: #fa59ff;
-	font-family: "Zapf Chancery";
-	font-size:40px;
-
+    color:#eb9316;
+    font-size:40px;
 }
-
-.jumbotron .ingredient th{
-    font: bold 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
-    color: #4f6b72;
-    border-right: 1px solid #C1DAD7;
-    border-bottom: 1px solid #C1DAD7;
-    border-top: 1px solid #C1DAD7;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+.jumbotron span{
+    font-size:20px;
+}
+.jumbotron .ingredient{
+    font-size:18px;
+    width:100%;
     text-align: left;
-    padding: 6px 6px 6px 12px;
-    background: #CAE8EA no-repeat;
+    color:#777777;
 }
 
-jumbotron .ingredient td{
-    border-right: 1px solid #C1DAD7;
-    border-bottom: 1px solid #C1DAD7;
-    background: #fff;
-    font-size:11px;
-    padding: 6px 6px 6px 12px;
-    color: #4f6b72;
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
 }
+
 .section-padding{
-	padding-top:350px;
+	padding-top:380px;
 }
 .showcase-box{
 	height:320px;
@@ -130,7 +106,7 @@ jumbotron .ingredient td{
 }
 
 .menu-padding{
-	padding-top: 100px;
+	padding-top: 130px;
 }
 
 .bottom-menu{
@@ -141,41 +117,13 @@ jumbotron .ingredient td{
 }
 
 .bottom-menu .navbar-brand{
-	font-size:20 px;
+	font-size:20px;
 	padding:0;
 }
 
-.bottom-menu .title{
-	font-size:13px;
-	font-weight: 700;
-	margin-top:0;
-}
 
 .bottom-menu a{
 	color:inherit;
-}
-.active .bottom-menu a,
-.bottom-menu a:hover,
-.bottom-menu a:focus{
-	color:#e47054;
-	text-decoration:none;
-};
-
-.bottom-menu .bottom-links{
-	font-size:14px;
-	line-height: 1.286;
-}
-
-.bottom-links{
-	margin: 0;
-	padding:0;
-	list-style: none;
-}
-
-.bottom-links li{
-	display: block;
-	float:left;
-	margin:0 20px 0 0;
 }
 
 .recipe{
@@ -225,27 +173,3 @@ jumbotron .ingredient td{
     font-size:18px;
 }
 
-.pagination {
-	padding: 3px;
-	margin-left: auto;
-        margin-right: auto;
-}
-
-.pagination a {
-	padding: 2px 5px 2px 5px;
-	margin: 2px;
-	border: 1px solid #AAAADD;
-	
-	text-decoration: none; 
-	color: #000099;
-}
-
-.pagination span {
-	padding: 2px 5px 2px 5px;
-	margin: 2px;
-		border: 1px solid #000099;
-		
-		font-weight: bold;
-		background-color: #000099;
-		color: #FFF;
-	}

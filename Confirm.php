@@ -4,26 +4,15 @@ if ($_GET['action']=="check"){
     if($_GET['conf']=="ingr"){
         $name=$_GET['ingname'];
         $dsn=  database::connect();
-        if (database::finding($name, $dsn)){
-            echo '1';
-            
-        }
-        else{
-            echo '0';
-            
-        }
-    $dsn=null;}
+        $result=findingid($dsn,$name);
+        echo $result;
+        $dsn=null;
+        
+    }
     if($_GET['conf']=="regis"){
         $name=$_GET['ingname'];
         $dsn=  database::connect();
-        if (database::finduser($name, $dsn)){
-            echo '1';
-            
-        }
-        else{
-            echo '0';
-            
-        }
+        echo finduserid($dsn,$name);
         $dsn=null;
     }
 }

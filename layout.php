@@ -9,7 +9,7 @@ $header='<header>
 			<li><a href="index.php">Home</a></li>
 			<li><a href="plan.php">Make Plans</a></li>
 			<li><a href="recipe.php">Find Recipes</a></li>
-			<li><a href="recipeAide.php">Share Recipes</a></li>
+			<li><a href="recipeAdd.php">Share Recipes</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">';
       

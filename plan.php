@@ -24,7 +24,7 @@ if (!isset($_SESSION['initiated'])) {
 ?>
             <?php
                 require_once("login.php");
-                logInOutForm2();
+                logInOutForm();
                 ?>
 		<div class="header">
 			<div class="background">&nbsp;</div>

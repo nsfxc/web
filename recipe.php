@@ -25,7 +25,7 @@ if (!isset($_SESSION['initiated'])) {
     ?>
             <?php
                 require_once("login.php");
-                logInOutForm2();
+                logInOutForm();
                 ?>
             <section class="menu-padding">
                 <?php

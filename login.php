@@ -3,7 +3,7 @@
 <?php
 function printLoginForm(){
     ?>
-   <form action="index.php?todo=login" method="post">
+   <form action="<?php echo $_SERVER['PHP_SELF']?>?todo=login" method="post">
     <p>login : <input type="text" name="login" placeholder="yixin" required /></p>
     <p>passward :
       <input name="password" type="password" required />
@@ -16,7 +16,7 @@ function printLoginForm(){
 <?php
 }
   function printLogoutForm(){
-      echo "<a href=index.php?todo=logout>Se déconnecter</a>";
+      ?><a href=<?php echo $_SERVER['PHP_SELF']?>?todo=logout>Se déconnecter</a>;<?php
   }
 
 
@@ -49,14 +49,6 @@ function printLoginForm(){
                        else {
                    printLoginForm();
    };};
-     function  logInOutForm2(){
-          if (isset($_SESSION['loggedIn'])) {
-                      printLogoutForm();
-                       } 
-                       else {
-                   printLoginForm();
-     };
-     }
 
      
                        

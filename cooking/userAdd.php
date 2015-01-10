@@ -6,9 +6,9 @@
  */
 require ('functions.php');
 if(isset($_POST['submit'])){
-    if (isset($_POST['login'])&&  isset($_POST['pw']) && isset($_POST['em'])){
+    if (isset($_POST['username'])&&  isset($_POST['password']) && isset($_POST['email'])){
         $con =  database::connect();
-        $str = "INSERT INTO users (`lg`, `pw`,`email`) VALUES('$_POST[login]', SHA1('$_POST[pw]'), '$_POST[em]')";
+        $str = "INSERT INTO users (`username`, `password`,`email`) VALUES('$_POST[username]', '$_POST[password]', '$_POST[email]')";
         $con->query($str);
         $con=null;
         
@@ -29,14 +29,14 @@ if(isset($_POST['submit'])){
     </head>
     <body>
         <script language="javascript" type="text/javascript" src="js/jquery-1.11.0.min.js.js"></script>
-        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+        <form action="index.php" method="post">
             <div id="regis">
-               login:<input type="text" name="login" id="user"><br>
+               email:<input type="text" name="email" id="email"><br>
                <div id="message"></div>
             </div>
-            password:<input type="text" name="pw"><br>
-            e-mail:<input type="text" name="em"><br>
-            <input type="submit" name="submit" value="submit">
+            password:<input type="password" name="password"><br>
+            username:<input type="text" name="username"><br>
+            <input type="submit" name="submit" value="submit" id="submit">
         </form>
     </body>
 <?php

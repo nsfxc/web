@@ -24,10 +24,10 @@ class database{
       $dsn=null;
 }
 
-    public static function finduserid($username,$dsn){
-        $result=$dsn->query("SELECT `id` FROM `users` WHERE `username`='$username' ");
-        if ($row = $result->fetch(PDO::FETCH_ASSOC)){
-            return $row['id'];
+    public static function finduserid($email,$dsn){
+        $result=$dsn->query("SELECT `id` FROM `users` WHERE `email`='$email' ");
+        if ($row = $result->fetchALL()){
+            return $row[0]['id'];
         }
         else{
             return -1;

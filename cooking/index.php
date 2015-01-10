@@ -4,7 +4,34 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-
+<?php
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+require ('functions.php');
+if(isset($_POST['submit'])){
+    if (isset($_POST['username'])&&  isset($_POST['password']) && isset($_POST['email'])){
+        $con =  database::connect();
+        $str = "INSERT INTO users (`username`, `password`,`email`) VALUES('$_POST[username]', '$_POST[password]', '$_POST[email]')";
+        $con->query($str);
+        $con=null;
+        
+    }
+    else{
+    }
+}
+?>
+<?php
+    session_name("shen");
+// ne pas mettre d'espace dans le nom de session !
+    session_start();
+    if (!isset($_SESSION['initiated'])) {
+        session_regenerate_id();
+        $_SESSION['initiated'] = true;
+    }
+?>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -23,6 +50,10 @@ and open the template in the editor.
             </ul>
             </div>
         </div>
+        <?php
+            require_once("login.php");
+            logInOutForm();
+        ?>
         <script language="javascript" type="text/javascript" src="js/jquery-1.11.0.min.js.js"></script>
         <div class="container">
             <section class="section-padding">

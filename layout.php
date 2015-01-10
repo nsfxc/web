@@ -1,29 +1,25 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+    
 $header='<header>
-            <nav class="nabvar navbar-default" role="navigation">
+            <nav class="navbar navbar-default" role="navigation">
 		<div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
 			<li><a href="index.php">Home</a></li>
 			<li><a href="plan.php">Make Plans</a></li>
 			<li><a href="recipe.php">Find Recipes</a></li>
-			<li><a href="recipeAdd.php">Share Recipes</a></li>
+			<li><a href="recipeAide.php">Share Recipes</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">';
-function user(){
-    if (isset($_SESSION["user"])){
-		echo $_SESSION["user"];
-        }else{
-		echo "login";
-		echo "register";
-     }
-}
-$headerlast='       </ul>
+      
+     
+
+ 
+	      
+ 
+$headerlaster='
+                    </ul>
 		</div>
             </nav>
 	</header>

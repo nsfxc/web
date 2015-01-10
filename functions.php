@@ -6,8 +6,8 @@
  */
 class database{
     public static function connect() {
-        $dsn = 'mysql:dbname=cooking;host=localhost';
-        $user = 'czx';
+        $dsn = 'mysql:dbname=info;host=localhost';
+        $user = 'root';
         $password = '';
         $dbh = NULL;
         try {
@@ -23,14 +23,15 @@ class database{
     public static function close($dsn){
       $dsn=null;
 }
-
+   
+   
     public static function finduserid($username,$dsn){
         $result=$dsn->query("SELECT `id` FROM `users` WHERE `username`='$username' ");
         if ($row = $result->fetch(PDO::FETCH_ASSOC)){
             return $row['id'];
         }
         else{
-            return -1;
+            return error_log("notfound");
         }
     }
     
@@ -49,21 +50,10 @@ class database{
             return $row['id'];
         }
         else{
-            return -1;
+            return error_log("notfound");
         }
     }
     
-    public static function lasting($dsn){
-        $result=$dsn->query("SELECT * FROM `ingredients`");
-        $ing=$result->fetchALL();
-        return sizeof($ing);
-    }
-    
-    public static function lastrecip($dsn){
-        $result=$dsn->query("SELECT * FROM `recipes`");
-        $recip=$result->fetchALL();
-        return sizeof($recip);
-    }
     
     public static function finduser($user,$dsn){
         $result=$dsn->query("SELECT `username` FROM `users` WHERE `username`='$user' ");
@@ -95,8 +85,8 @@ class database{
         }
         
     }
+
 }
-    
 
     
 

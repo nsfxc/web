@@ -1,5 +1,12 @@
-<!DOCTYPE html>
-
+<?php
+session_name("shen");
+// ne pas mettre d'espace dans le nom de session !
+session_start();
+if (!isset($_SESSION['initiated'])) {
+    session_regenerate_id();
+    $_SESSION['initiated'] = true;
+}
+?>
 <html>
 	<head>
         <meta charset="UTF-8">
@@ -14,9 +21,11 @@
 <?php
     require("layout.php");
     echo $header;
-    user();
-    echo $headerlast;
 ?>
+            <?php
+                require_once("login.php");
+                logInOutForm();
+                ?>
 		<div class="header">
 			<div class="background">&nbsp;</div>
 		</div>

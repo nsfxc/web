@@ -1,9 +1,12 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+<?php
+session_name("shen");
+// ne pas mettre d'espace dans le nom de session !
+session_start();
+if (!isset($_SESSION['initiated'])) {
+    session_regenerate_id();
+    $_SESSION['initiated'] = true;
+}
+?>
 
 <html>
     <head>
@@ -30,6 +33,10 @@ and open the template in the editor.
                     <h2><span class="grey">Welcome to our</span> KITCHEN</h2>
                     <p>Wanna cook yourself? Let's start from now!</p>
                 </div>
+                <?php
+                require_once("login.php");
+                logInOutForm();
+                ?>
                 <div class="jumbotron text-center">
                     <div class="row">
                         <div class="showcase-box col-md-4">

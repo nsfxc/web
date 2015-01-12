@@ -1,13 +1,4 @@
 <?php
-    session_name("shen");
-// ne pas mettre d'espace dans le nom de session !
-    session_start();
-    if (!isset($_SESSION['initiated'])) {
-        session_regenerate_id();
-        $_SESSION['initiated'] = true;
-    }
-?>
-<?php
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -17,7 +8,7 @@ require ('functions.php');
 if(isset($_POST['submit'])){
     if (isset($_POST['username'])&&  isset($_POST['password']) && isset($_POST['email'])){
         $con =  database::connect();
-        $str = "INSERT INTO users (`username`, `password`,`email`) VALUES('$_POST[username]', '$_POST[password]', '$_POST[email]')";
+        $str = "INSERT INTO users (`username`, `password`,`email`) VALUES('$_POST[username]', SHA1('$_POST[password]'), '$_POST[email]')";
         $con->query($str);
         $con=null;
         
@@ -26,37 +17,48 @@ if(isset($_POST['submit'])){
     }
 }
 ?>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <link href="css/bootstrap.css" rel="stylesheet">
-        <link href="css/perso.css" rel="stylesheet">
-        <script src="js/jquery.js"></script>
-        <script src="js/bootstrap.js"></script>
-        <script src="js/registion.js"></script>
-        <title>register page</title>
-    </head>
-    <body>
 <?php
     require("layout.php");
-    echo $header;
-    require("login.php");
-    logInOutForm();
-    echo $headerlast;
-    
+    echo $head;
+    echo"<title>New user</title>";
+    echo"<script src='js/registion.js'></script>";
+    head();
 ?>
-        <script language="javascript" type="text/javascript" src="js/jquery-1.11.0.min.js.js"></script>
-        <form action="index.php" method="post">
-            <div id="regis">
-               email:<input type="text" name="email" id="email"><br>
-               <div id="message"></div>
+    <section class="menu-padding">
+        <div class="container jumbotron">
+        <form class="form-horizontal" action="index.php" method="post">
+            <div class="form-group" id="regis">
+                <label class="col-sm-2 clontrol-label">E-mail</label>
+                <div class="col-sm-3">
+                    <input type="text" name="email" id="email" required>
+                </div>
+                <div id="message1"></div>
             </div>
-            password:<input type="password" name="password"><br>
-            username:<input type="text" name="username"><br>
-            <input type="submit" name="submit" value="submit" id="submit">
+            <div class="form-group">
+                <label class="col-sm-2 clontrol-label">Password</label>
+                <div class="col-sm-3">
+                    <input type="password" name="password" id="password1">
+                </div>
+                <div id="message2"></div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 clontrol-label">Repeat your password</label>
+                <div class="col-sm-3">
+                    <input type="password" name="password2" id="password2">
+                </div>
+                <div id="message3"></div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 clontrol-label">Username</label>
+                <div class="col-sm-3">
+                    <input type="text" name="username" id="username">
+                </div>
+                <div id="message4"></div>
+            </div>
+            <input class="btn btn-default" type="submit" name="submit" value="submit" id="submit">
         </form>
+        </div>
+    </section>
 <?php
 echo $footer;
 ?>
-    </body>
-</html>

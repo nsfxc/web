@@ -1,62 +1,9 @@
 <!DOCTYPE html>
 <?php
-    session_name("shen");
-// ne pas mettre d'espace dans le nom de session !
-    session_start();
-    if (!isset($_SESSION['initiated'])) {
-        session_regenerate_id();
-        $_SESSION['initiated'] = true;
-    }
-?>
-
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <link href="css/bootstrap.css" rel="stylesheet">
-        <link href="css/perso.css" rel="stylesheet">
-        <script src="js/jquery.js"></script>
-        <script src="js/bootstrap.js"></script>
-        <script src="js/registion.js"></script>
-        <title>plan page</title>
-    </head>
-    <script type="text/javascript">
-        function addIng(){
-            var rowLength=$("#tableing tr").length;
-            var rowId=rowLength; 
-            var newTr = tableing.insertRow();   
-            var newTd0 = newTr.insertCell();   
-            var newTd2 = newTr.insertCell();  
-            newTd0.innerHTML = "<input type='text' name='ing"+rowId+"' id='ing"+rowId+"' form='myform'/>";   
-            newTd2.innerHTML= "<input class='btn btn-default' type='button' name='delete"+rowId+"' id='delete"+rowId+"' value='delete' onclick='deleteRow(\""+rowId+"\")'/>";
-        } 
-        function deleteRow(rowId){
-            tableing.deleteRow(rowId);
-            var l=$("#tableing tr").length+1;
-            var k=parseInt(rowId)+1;
-            for(var i=k;i<l;i++){
-                var ing="ing"+i.toString();
-                var delet="delete"+i.toString();
-                var ingobj=document.getElementById(ing);
-                var deleteobj=document.getElementById(delet);
-                var j=i-1;
-                var newid="ing"+j.toString();
-                var newdelete="delete"+j.toString();
-                var newclick="deleteRow("+j.toString()+")";
-                ingobj.setAttribute("id",newid);
-                ingobj.setAttribute("name",newid);
-                deleteobj.setAttribute("id",newdelete);
-                deleteobj.setAttribute("name",newdelete);
-                deleteobj.setAttribute("onclick",newclick);
-            }
-        }
-    </script>
-    <body>
-<?php
     require("layout.php");
-    require("login.php");
-    echo $header;
-    logInOutForm();
-    echo $headerlast;
+    echo $head;
+    echo "<title>Search</title>";
+    head();
 ?>
     <section class="menu-padding">
 	<div class="container jumbotron">
@@ -145,10 +92,9 @@
                 $i=0;
                 echo "<div class='recipe'>";
                 echo $row[$i]['name'];
-                if (file_exists("recipeimg/".$id)){echo "<img class='image-rounded' src='recipeimg/$id.png'>";}else{
-                    echo"<img src='recipeimg/cooker.png'>";
+                if (file_exists("recipeimg/".$id)){echo "<img class='img-circle' src='recipeimg/$id.png'>";}else{
+                    echo"<img class='img-circle' src='recipeimg/cooker.png'>";
                 }
-                if ($image==""){$image="default.png";}
                 $ing=$con->query("SELECT * FROM `recipesingredients` WHERE `recipe`='$id' ");
                 echo"<table class='table tablebordered'><thead><tr><th>Ingredient Name</th><th>Amount</th><tr><thead>";
                 $rowing=$ing->fetchALL();
@@ -176,5 +122,3 @@
     };
     echo $footer;
 ?>
-	</body>
-</html>

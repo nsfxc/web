@@ -1,66 +1,33 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <link href="css/bootstrap.css" rel="stylesheet">
-        <link href="css/perso.css" rel="stylesheet">
-        <script src="js/jquery.js"></script>
-        <script src="js/bootstrap.js"></script>
-        <script src="js/registion.js"></script>
-        <title>plan page</title>
-    </head>
-    <script type="text/javascript">
-        function addIng(){
-            var rowLength=$("#tableing tr").length;
-            var rowId=rowLength; 
-            var newTr = tableing.insertRow();   
-            var newTd0 = newTr.insertCell();  
-            var newTd1 = newTr.insertCell();  
-            var newTd2 = newTr.insertCell();  
-            newTd0.innerHTML = "<input type='text' name='ing"+rowId+"' id='ing"+rowId+"' form='myform'/>";   
-            newTd1.innerHTML = "<input type='text' name='amount"+rowId+"' id='amount"+rowId+"' form='myform'/>";  
-            newTd2.innerHTML= "<input class='btn btn-default' type='button' name='delete"+rowId+"' id='delete"+rowId+"' value='delete' onclick='deleteRow(\""+rowId+"\")'/>";
-        } 
-        function deleteRow(rowId){
-            tableing.deleteRow(rowId);
-            var l=$("#tableing tr").length+1;
-            var k=parseInt(rowId)+1;
-            for(var i=k;i<l;i++){
-                var ing="ing"+i.toString();
-                var amount="amount"+i.toString();
-                var delet="delete"+i.toString();
-                var ingobj=document.getElementById(ing);
-                var amountobj=document.getElementById(amount);
-                var deleteobj=document.getElementById(delet);
-                var j=i-1;
-                var newid="ing"+j.toString();
-                var newamount="amount"+j.toString();
-                var newdelete="delete"+j.toString();
-                var newclick="deleteRow("+j.toString()+")";
-                ingobj.setAttribute("id",newid);
-                ingobj.setAttribute("name",newid);
-                amountobj.setAttribute("id",newamount);
-                amountobj.setAttribute("name",newamount);
-                deleteobj.setAttribute("id",newdelete);
-                deleteobj.setAttribute("name",newdelete);
-                deleteobj.setAttribute("onclick",newclick);
-            }
-        }
-    </script>
-    <body>  
-        <?php
-        require("layout.php");
-        require("login.php");
-        echo $header;
-        logInOutForm();
-        echo $headerlast;
-        ?>
+<?php
+    require("layout.php");
+    echo $head;
+    echo"<title>Add Recipe</title>";
+    echo "<script src='js/recipeAdd.js'></script>";
+    head();
+?>
         <section class="menu-padding">
             <div class="jumbotron container">
                 <form class="form-horizontal" action='<?php echo $_SERVER['PHP_SELF'];?>' method="POST" id="myform" enctype="multipart/form-data">
                 <div class="form-inline">
                     <label for="name">Name</label>
-                    <input class="form-control" type="text" name="name" id="name">
+                    <?php
+                    $name='';
+                    if (isset($_GET['action'])){
+                        if ($_GET['action']=="modify"){
+                            $recipe=$_GET['recipe'];
+                            $user=$_GET['user'];
+                        }
+                        $dsn=  database::connect();
+                        $str="select * from recipes where `id`=$recipe and `user`=$user";
+                        $result=$dsn->query($str)->fetchALL();
+                        if (sizeof($result)!=0){
+                            $name=$result[0]['name'];
+                        }
+                        $dsn=null;
+                    }
+                    echo "<input class='form-control' type='text' name='name' id='name' placeholder='$name' required>";
+                            ?>
                     <label for="name">Occasion</label>
                     <select name='occasion'>
                         <option value="Breakfast">Breakfast</option>
@@ -84,8 +51,25 @@
                 <a href="javascript:addIng()">Add an ingredient</a><br>
                 <div class="form-inline">
                     <label for="method">Method</label><br>
-                    <textarea rows="10" cols="50" name="method">
-                        Please write your methods here...
+                    <textarea rows="10" cols="50" name="method" required>
+                        <?php
+                            $method="Write your method here";
+                            if (isset($_GET['action'])){
+                                if ($_GET['action']=="modify"){
+                                    $recipe=$_GET['recipe'];
+                                    $user=$_GET['user'];
+                                }
+                            $dsn=  database::connect();
+                            $str="select * from recipes where `id`=$recipe and `user`=$user";
+                            $result=$dsn->query($str)->fetchALL();
+                            if (sizeof($result)!=0){
+                                $method=$result[0]['method'];
+                            }
+                            $dsn=null;
+                            echo $method;
+                    }
+                    echo $method;
+                            ?>
                     </textarea><br>
                 </div>
                 <div class="form-inline">
@@ -100,16 +84,17 @@
             </div>
         </section>
     <?php
-    require ('functions.php');
     if (isset($_POST['submit'])){
-        if ($_SESSION['loggedin']){
+        if (isset($_SESSION['loggedin'])){
             $userid=$_SESSION['id'];
         }
         else{
-            $userid="";
+            $userid=1;
         }
+        $con=  database::connect();
         $recipno=database::lastrecip($con);
-        $target_dir="recipeimg/";
+        $currentdir = getcwd();
+        $target_dir=$currentdir."/recipeimg/";
         $target_file=$target_dir.basename($_FILES["image"]["name"]);
         $imageFileType=pathinfo($target_file,PATHINFO_EXTENSION);
         $upload_OK=1;
@@ -123,26 +108,25 @@
         }
         if($upload_OK!=0){
             $new=$recipno.".png";
-            move_uploaded_file($_FILES['image']['tmp_name'], $target_file,$new);
+            $name=$target_dir.$new;
+            move_uploaded_file($_FILES['image']['tmp_name'],$name);
         }else{$new="cooker.png";}
         $name=$_POST['name'];
         $method=$_POST['method'];
         $occasion=$_POST['occasion'];
-        $con =  database::connect();
-        $str = "INSERT INTO recipes (`name`, `method`,`occasion`,`user`) VALUES('$name', '$method','$occasion','$userid')";
+        $str = "INSERT INTO recipes (`name`, `method`,`occasion`,`user`) VALUES('$name', '$method','$occasion',(select `id` from `users` where `id`='$userid'))";
         $con->query($str);
         $no=1;
         $ingno="ing";
         $ingno.=(string)$no;
         $amountno="amount";
         $amountno.=(string)$no;
-        if ($image==""){$image="default.png";}
 echo <<<END
-        <p>Your recipe has been added!</p>
+        <script>alert("Your recipe has been added!")</script>
         <div class="recipeadd">
             <div class="name">
                 {$name}
-                <img class="img-rounded" src="recipeimg/$new">
+                <img class="img-circle" src="recipeimg/$new">
             </div>
             <div class="ocassion">
                 {$occasion}
@@ -177,10 +161,5 @@ END;
         echo "</table><br>";
         echo "<div class='method'>Method:<br>{$method}</div></div>";
     }
-
+echo $footer;
 ?>
-    <?php
-    echo $footer;
-        ?>
-    </body>  
-    </html> 

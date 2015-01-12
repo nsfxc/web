@@ -17,6 +17,14 @@ body{
     margin-top: 6px;
     margin-right:16px;
 }
+
+.form-group a{
+    color:#777777;
+}
+.form-group a.hover{
+    color:#000;
+    border:1px solid #000;
+}
 .register {
     width:auto;
 }
@@ -105,33 +113,13 @@ body{
     color:#777777;
 }
 .jumbotron a{
-    color:inherit;
+    text-decoration: underline;
+    font-style: italic;
+    color:#8a6d3b;
 }
-.vertical-center {
-  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
-  min-height: 100vh; /* These two lines are counted as one :-)       */
-
-  display: flex;
-}
-
 .section-padding{
 	padding-top:360px;
 }
-.showcase-box{
-	height:320px;
-	padding:2px;
-}
-
-.showcase-item{
-	color:#777777;
-	padding:40px;
-	height: 100%;
-	width: 100%;
-}
-.grey{
-	color:#777777;
-}
-
 .menu-padding{
 	padding-top: 130px;
 }
@@ -161,19 +149,19 @@ body{
         width:70%;
 	background: white;
 	color:#777777;
-        font-size:25px;
+        font-size:18px;
 }
 .recipe a{
     color:inherit;
 }
 .recipe .ingredient{
-    font-size:18px;
+    font-size:15px;
     width:100%;
     text-align: left;
     color:#777777;
 }
 .recipe .method{
-    font-size:18px;
+    font-size:15px;
     color:#777777;
 }
 .recipeadd{
@@ -219,4 +207,8 @@ body{
 }
 .occasion a{
     color:inherit;
+}
+.img-circle{
+    margin-left: 500px;
+    width:200px;
 }

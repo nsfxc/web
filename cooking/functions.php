@@ -56,15 +56,29 @@ class database{
     public static function lasting($dsn){
         $result=$dsn->query("SELECT * FROM `ingredients`");
         $ing=$result->fetchALL();
-        return sizeof($ing);
+        return $ing[sizeof($ing)-1]['id'];
     }
     
     public static function lastrecip($dsn){
         $result=$dsn->query("SELECT * FROM `recipes`");
         $recip=$result->fetchALL();
+        return $recip[sizeof($recip)-1]['id'];
+    }
+    public static function lastuser($dsn){
+        $result=$dsn->query("SELECT * FROM `users`");
+        $user=$result->fetchALL();
+        return $user[sizeof($user)-1]['id'];
+    }
+    public static function norecipe($dsn){
+        $result=$dsn->query("SELECT * FROM `recipes`");
+        $recip=$result->fetchALL();
         return sizeof($recip);
     }
-    
+    public static function nouser($dsn){
+        $result=$dsn->query("SELECT * FROM `users`");
+        $user=$result->fetchALL();
+        return sizeof($user);
+    }
     public static function finduser($user,$dsn){
         $result=$dsn->query("SELECT `username` FROM `users` WHERE `username`='$user' ");
         if($row = $result->fetch(PDO::FETCH_ASSOC)){

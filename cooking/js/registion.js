@@ -9,16 +9,54 @@ $(document).ready(function(){
         var changeURL="Confirm.php?action=check&conf=regis&ingname="+name;
             $.get(changeURL,function(str){
                 if(str!=='-1'){
-                    $("#message").html('<p>username existed, please choose another name</p>');
+                    $("#message1").html('<p>E-mail existed, please choose another e-mail or login!</p>');
                     $("#email").val("");
                 }
                 else{
-                    $("#message").html('');
+                    $("#message1").html('');
                 }
             });
     });
+    $('#password1').blur(function(){
+        var password=$(this).val();
+        if (password.length<=6){
+            $("#message2").html('<p>Password should have more than 6 characters!</p>')
+            $("#password").val("");
+        }
+        else{
+            $("#message2").html('');
+        }
+    });
+    $('#password2').blur(function(){
+        var password2=$(this).val();
+        var password1=$('#password1').val();
+        if (password2!==password1){
+            $("#message3").html('<p>Passwords different!</p>')
+            $("#password2").val("");
+        }
+        else{
+            $("#message3").html('');
+        }
+    });
     $("#submit").click(function(){
-        alert("Registion Succeed!");
+        var email=$("#email").val();
+        var password1=$("#password1").val();
+        var password2=$("#password2").val();
+        var username=$("#username").val();
+        if(email.indexOf('@')>-1 && email.length>6 && password1.length>6 && password1===password2 && username.length>0){
+            alert("Registion Succeed!");
+        }
+        else{
+            if (email.indexOf('@')==-1 || email.length<=6){
+                $("#message1").html('<p>Email illegal!</p>');
+            }
+            if(password1.length==0){
+                $("#message2").html('<p>Please choose a password!</p>');
+            }
+            if(username.length==0){
+                $("#message4").html('<p>Please choose an username!</p>')
+            }
+        }
     });
 });
 

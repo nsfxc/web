@@ -1,4 +1,13 @@
 <?php require_once("connextion.php");
+    function start(){
+        session_name("shen");
+// ne pas mettre d'espace dans le nom de session !
+        session_start();
+        if (!isset($_SESSION['initiated'])) {
+            session_regenerate_id();
+            $_SESSION['initiated'] = true;
+        }
+    }
     function printLoginForm(){
         $p='PHP_SELF';
 echo <<<END
@@ -16,7 +25,7 @@ END;
     }
     function printLogoutForm(){
        $p='PHP_SELF';
-       echo "<a href='$_SERVER[$p]?todo=logout'>Logout</a>";
+       echo "<li><a href='$_SERVER[$p]?todo=logout'> Logout</a></ul></nav></div>";
     }
     function logIn(){
         $uti=Utilisateur::getUtilisateur($_POST['email']);
@@ -35,6 +44,7 @@ END;
     }
     function logOut(){
         unset($_SESSION['loggedIn']);
+        if (isset($_SESSION['admin'])){unset($_SESSION['admin']);};
     }
     function logInOutForm(){
         if (isset($_GET['todo'])) {
@@ -48,13 +58,21 @@ END;
             }
         }
         if (isset($_SESSION['loggedIn'])) {
+            if(isset($_SESSION['admin'])){
+echo <<<END
+                 <nav class="navbar-default">
+                    <ul class="nav navbar-nav"><li><a href='profile.php'>Admin</a></li>
+END;
+                printLogoutForm();
+            }else{
             $name=$_SESSION['name'];
             $id=$_SESSION['id'];
 echo <<<END
-            $name welcome!
-            <a href='profile.php'>profile</a>
+                 <nav class="navbar-default">
+                    <ul class="nav navbar-nav"><li><a href='profile.php'>My Profile</a></li>
 END;
             printLogoutForm();
+        }
         }
         else {
             printLoginForm();

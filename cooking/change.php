@@ -1,27 +1,9 @@
-<?php
-    session_name("shen");
-// ne pas mettre d'espace dans le nom de session !
-    session_start();
-    if (!isset($_SESSION['initiated'])) {
-        session_regenerate_id();
-        $_SESSION['initiated'] = true;
-    }
-?>
-<html>
-	<head>
-        <meta charset="UTF-8">
-        <link href="css/bootstrap.css" rel="stylesheet">
-        <link href="css/perso.css" rel="stylesheet">
-        <script src="js/jquery.js"></script>
-        <script src="js/bootstrap.js"></script>
-        <script src="js/registion.js"></script>
-        <title>plan page</title>
-    </head>
-	<body>
-            <section class="menu-padding">
+<!DOCTYPE html>
 <?php
     require("layout.php");
-    require_once("login.php"); 
+    echo $head;
+    echo"<title>Modification</title>";
+    head();
     $dsn=  database::connect();
     $id=$_SESSION['id'];
     $str="SELECT * FROM `users` WHERE `id`=$id";
@@ -48,9 +30,6 @@
             echo"password incorrect!";
         }
     }
-    echo $header;
-    logInOutForm();
-    echo $headerlast;
     if(isset($_GET['email'])){
         $email=$_GET['email'];
         $str="UPDATE `users` SET `email`='$email' WHERE `id`='$id'";
@@ -74,7 +53,6 @@
     }
     if(isset($_GET['password'])){
 echo <<<END
-
         <form action="change.php" method="POST">
             Ancient password:<input type="password" name="ancientpassword"><br>
             New password:<input type="password" name="newpassword1"><br>
@@ -86,5 +64,3 @@ END;
     echo "</section>";
     echo $footer;
 ?>
-	</body>
-</html>

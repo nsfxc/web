@@ -1,12 +1,4 @@
-<?php
-    session_name("shen");
-// ne pas mettre d'espace dans le nom de session !
-    session_start();
-    if (!isset($_SESSION['initiated'])) {
-        session_regenerate_id();
-        $_SESSION['initiated'] = true;
-    }
-?><!DOCTYPE html>
+<!DOCTYPE html>
 <?php
     if (isset($_POST['submit'])){
         $receivemessage="Hi, we have recieved your message, we will give your an response as soon as possible. "
@@ -31,31 +23,14 @@ END;
         }  
     }
 ?>
-<script type="text/javascript">
-    function alertmessage(){
-        alert("Your message have been send!");
-    }
-</script>
-<html>
-	<head>
-        <meta charset="UTF-8">
-        <link href="css/bootstrap.css" rel="stylesheet">
-        <link href="css/perso.css" rel="stylesheet">
-        <script src="js/jquery.js"></script>
-        <script src="js/bootstrap.js"></script>
-        <script src="js/registion.js"></script>
-        <title>plan page</title>
-    </head>
-	<body>
 <?php
     require("layout.php");
-    require("login.php");
-    echo $header;
-    logInOutForm();
-    echo $headerlast;
+    echo $head;
+    echo "<title>Contact us</title>";
+    head();
 ?>
-            <section class="menu-padding">
-            <div class="jumbotron container">
+    <section class="menu-padding">
+        <div class="jumbotron container">
             <form class="form" action="<?php echo $_SERVER['PHP_SELF'];?>" method="POST">
                 <?php
                     if(!$_SESSION['loggedIn']){
@@ -81,5 +56,3 @@ END;
 <?php
     echo $footer;
 ?>
-	</body>
-</html>

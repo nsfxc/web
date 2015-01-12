@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `info`
+-- Database: `cooking`
 --
 
 -- --------------------------------------------------------
@@ -47,14 +47,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `lg`, `pw`, `email`) VALUES
-(2, 'e', '676e6f35cfc173f73fea9fe27699cf8185397f0c', 'we'),
-(3, 'a', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'ae'),
-(4, 'sdf', '9a6747fc6259aa374ab4e1bb03074b6ec672cf99', 'sdfa');
 
 -- --------------------------------------------------------
 
@@ -67,40 +59,3 @@ CREATE TABLE IF NOT EXISTS `warehouse` (
   `catalog` enum('vegetable','meat','dairy','condiment','fruit','') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `warehouse`
---
-
-INSERT INTO `warehouse` (`name`, `catalog`) VALUES
-('tomate', 'vegetable'),
-('potato', 'vegetable'),
-('lamb', 'meat');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `recette`
---
-ALTER TABLE `recette`
- ADD KEY `favori` (`favori`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
- ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

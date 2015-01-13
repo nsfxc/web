@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-    require("layout.php");
+    require("developper/layout.php");
     echo $head;
     echo"<title>Add Recipe</title>";
     echo "<script src='js/recipeAdd.js'></script>";

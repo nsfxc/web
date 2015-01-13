@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-    require("layout.php");
+    require("developper/layout.php");
     echo $head;
     echo "<title>Profile</title><script src='js/profile.js'></script>";
     head();

@@ -1,5 +1,6 @@
 <?php
-require ('functions.php');
+
+require ('developper/functions.php');
 if ($_GET['ing']='last'){
     $dsn = database::connect();
     $noing = lasting($dsn);

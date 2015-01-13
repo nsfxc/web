@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
-    require("layout.php");
-    require("show.php");
+    require("developper/layout.php");
+    require("developper/show.php");
     echo $head;
     echo "<title>recipe modify</title>";
     head();

@@ -24,7 +24,7 @@ END;
     }
 ?>
 <?php
-    require("layout.php");
+    require("developper/layout.php");
     echo $head;
     echo "<title>Contact us</title>";
     head();

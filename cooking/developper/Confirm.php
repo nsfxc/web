@@ -1,5 +1,6 @@
 <?php
-require ('functions.php');
+
+require ('developper/functions.php');
 if ($_GET['action']=="check"){
     if($_GET['conf']=="ingr"){
         $name=$_GET['ingname'];

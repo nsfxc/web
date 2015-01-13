@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <?php
-    require("layout.php");
+    require("developper/layout.php");
     echo $head;
     echo "<title>Search</title>";
+    echo "<script src='js/plan.js'></script>";
     head();
 ?>
     <section class="menu-padding">

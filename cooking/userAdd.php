@@ -4,7 +4,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-require ('functions.php');
+require ('developper/functions.php');
 if(isset($_POST['submit'])){
     if (isset($_POST['username'])&&  isset($_POST['password']) && isset($_POST['email'])){
         $con =  database::connect();
@@ -18,7 +18,7 @@ if(isset($_POST['submit'])){
 }
 ?>
 <?php
-    require("layout.php");
+    require("developper/layout.php");
     echo $head;
     echo"<title>New user</title>";
     echo"<script src='js/registion.js'></script>";

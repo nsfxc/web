@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-    require("layout.php");
+    require("developper/layout.php");
     echo $head;
     echo"<title>Modification</title>";
     head();

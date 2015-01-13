@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
-    require("layout.php");
-    require("show.php");
+    require("developper/layout.php");
+    require("developper/show.php");
     echo $head;
     echo "<title>Show Recipes</title>";
     head();
@@ -17,12 +17,12 @@
     }
     function linked($str,$url){
         if(isset($_GET[$str])){
-            echo "<div class='occasion'>$str <a href='recipe.php?$url'><span class='glyphicon glyphicon-chevron-up'></span></a>";
+            echo "<div class='occasion'>$str <a href='recipeView.php?$url'><span class='glyphicon glyphicon-chevron-up'></span></a>";
             show("`occasion`='$str'",$str,$_GET[$str],$url,"recipeView.php?");
             echo"</div>";
         }
         else{
-            echo "<div class='occasion'>$str <a href='recipe.php?$url&$str=0'><span class='glyphicon glyphicon-chevron-down'></span></a>";
+            echo "<div class='occasion'>$str <a href='recipeView.php?$url&$str=0'><span class='glyphicon glyphicon-chevron-down'></span></a>";
             echo "</div>";
         }
     }

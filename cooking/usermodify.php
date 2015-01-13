@@ -1,5 +1,5 @@
 <?php
-    require("layout.php");
+    require("developper/layout.php");
     echo $head;
     echo "<title>Use modify</title>";
     head();

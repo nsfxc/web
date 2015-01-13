@@ -1,4 +1,5 @@
 <?php
+
 function show($object,$index,$no,$pag,$url){  
         $dsn= database::connect();
         $result=$dsn->query("SELECT * FROM `recipes` WHERE $object");

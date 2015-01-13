@@ -1,4 +1,6 @@
-<?php require_once("connextion.php");
+<?php
+   
+    require_once("developper/connextion.php");
     function start(){
         session_name("shen");
 // ne pas mettre d'espace dans le nom de session !

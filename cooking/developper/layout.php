@@ -6,7 +6,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-require ("login.php");
+
+require ("developper/login.php");
 $head='<html>
 	<head>
         <meta charset="UTF-8">

@@ -6,6 +6,7 @@
         public $username;
         public $password;
         public $email;
+        public $is_admin;
         public static function getUtilisateur($login) {
             $dbh = Database::connect();
             $query = "SELECT * FROM `users` WHERE `email`=?";

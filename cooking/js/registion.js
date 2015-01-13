@@ -23,24 +23,39 @@ $(document).ready(function(){
     });
     $('#password1').blur(function(){
         var password=$(this).val();
+        if(!password.match(/[^a-zA-Z0-9]/)){
+            $("#message2").html('<p>Password should only have letters or numbers!</p>');
+            $("#password").val("");
+        }else{
         if (password.length<6){
             $("#message2").html('<p>Password should have at least 6 characters!</p>')
             $("#password").val("");
         }
         else{
             $("#message2").html('');
-        }
+        }}
     });
     $('#password2').blur(function(){
         var password2=$(this).val();
         var password1=$('#password1').val();
+        if(!password2.match(/[^a-zA-Z0-9]/)){
+            $("#message3").html('<p>Password should only have letters or numbers!</p>');
+            $("#password2").val("");
+        }else{
         if (password2!==password1){
-            $("#message3").html('<p>Passwords different!</p>')
+            $("#message3").html('<p>Passwords different!</p>');
             $("#password2").val("");
         }
         else{
             $("#message3").html('');
-        }
+        }}
+    });
+    $('#username').blur(function(){
+       var username=$(this).val();
+       if (!username.match(/[^a-zA-Z0-9]/)){
+           $("#message4").html('<p>Username should only have letters or numbers!</p>');
+           $("#username").val("");
+       }
     });
     $("#submit").click(function(){
         var email=$("#email").val();

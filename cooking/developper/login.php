@@ -30,9 +30,10 @@ END;
        echo "<li><a href='$_SERVER[$p]?todo=logout'> Logout</a></ul></nav></div>";
     }
     function logIn(){
-        $uti=Utilisateur::getUtilisateur($_POST['email']);
+        if  (legal($_POST['email'])&&(legal($_POST['password']))){
+        $uti=Utilisateur::getUtilisateur(htmlspecialchars($_POST['email']));
         if (is_object($uti)){
-            if (Utilisateur::testerMdp2($uti,$_POST["password"])){
+            if (Utilisateur::testerMdp2($uti,  htmlspecialchars($_POST["password"]))){
                 $_SESSION['loggedIn'] = true;
                 $_SESSION['id']=$uti->id;
                 $_SESSION['username']=$uti->username;
@@ -47,7 +48,8 @@ END;
             }
         }else{
             echo"user not exist";
-        }
+        }}
+        else{echo"Username or password illegal!";}
     }
     function logOut(){
         unset($_SESSION['loggedIn']);

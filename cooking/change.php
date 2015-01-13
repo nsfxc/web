@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <?php
+/*
+ C'est la page qui permet à changer les informations des utilisateurs.  
+ */
     require("developper/layout.php");
     echo $head;
     echo"<title>Modification</title>";

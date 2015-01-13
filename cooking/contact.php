@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <?php
+/*
+ Sur cette page, les visiteurs ou les utilisateurs peuvent envoyer des message à nous.
+ */
     if (isset($_POST['submit'])){
         $receivemessage="Hi, we have recieved your message, we will give your an response as soon as possible. "
                 . "Thank you for supporting our site!";

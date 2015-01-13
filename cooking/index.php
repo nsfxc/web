@@ -42,7 +42,7 @@
                     <div class="row">
                         <div class="showcase-box col-md-4">
                             <div class="showcase-itm">
-                                <a href='recipeSearch.php'><img src="css/img/icon1.png"></a>
+                                <a href='recipeSearch.php'><img src="css/img/icon2.png"></a>
                                 <p>
                                     A recipe designed for you!
                                 </p>
@@ -50,7 +50,7 @@
                         </div>
                         <div class="showcase-box col-md-4">
                             <div class="showcase-itm">
-                                <a href='recipeView.php'><img src="css/img/icon2.png"></a>
+                                <a href='recipeView.php'><img src="css/img/icon1.png"></a>
                                 <p>
                                     View all our recipes!
                                 </p>

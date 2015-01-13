@@ -1,5 +1,11 @@
 <?php
-
+/*
+ * cette page est crée pour afficher les recettes surs des sous-pages, sur chaque page, il y a 3 recettes affichié.
+ * 'object' est le variable à rechercher dans la base de donnée
+ * 'index' est le nom du sous-page
+ * 'no' c'est le numéro du sous-page actuelle
+ * 'url' est le page qui utilise cette function 
+ */
 function show($object,$index,$no,$pag,$url){  
         $dsn= database::connect();
         $result=$dsn->query("SELECT * FROM `recipes` WHERE $object");
@@ -26,12 +32,16 @@ function show($object,$index,$no,$pag,$url){
                 echo "<div class='recipe'>";
                 $id=$row[$i]['id'];
                 if (isset($_SESSION['admin'])){
+                    $userid=$_SESSION['id'];
                     echo"<div class='modif'>Delete<input type='submit' name='delete' value='$id'></div>";
+                    if($_SESSION['id']==$row[$i]['user']){
+                        echo"<div class='modif'><a href='recipeAdd.php?action=modify&recipe=$id&user=$userid'>Modify</a></div>";
+                    }
                 }
                 else{
-                    if (isset($_SESSION['loggedIn'])&&($_SESSION['id']==$id)){
-                        $user=$_SEESION['id'];
-                        echo"<div class='modif'><a href='recipeAdd.php?action='modify'&recipe=$id&user=$user>Modify</a>";
+                    if (isset($_SESSION['loggedIn'])&&($_SESSION['id']==$row[$i]['user'])){
+                        $userid=$_SEESION['id'];
+                        echo"<div class='modif'><a href='recipeAdd.php?action=modify&recipe=$id&user=$userid'>Modify  </a>";
                         echo"Delete<input type='submit' name='delete' value='$id'></div>";}
                 }
                 echo $row[$i]['name'];

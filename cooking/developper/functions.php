@@ -1,10 +1,11 @@
 <?php
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ces cont les functions lié avec la base de donnée.
  */
-
+function legal($str){
+    if ((!strpos($str,"$"))&&(!strpos($str,"&")&&(!strpos($str,"<"))&&(!strpos($str,">"))))
+    {return true;}else{return false;}
+}
 class database{
     public static function connect() {
         $dsn = 'mysql:dbname=cooking;host=localhost';
@@ -26,9 +27,11 @@ class database{
 }
 
     public static function finduserid($email,$dsn){
-        $result=$dsn->query("SELECT `id` FROM `users` WHERE `email`='$email' ");
-        if (sizeof($row = $result->fetchALL())!=0){
-            return $row[0]['id'];
+        $sth=$dsn->prepare("SELECT `id` FROM `users` WHERE `email`=?");
+        $sth->execute(array($email));
+        $res=$sth->fetchALL();
+        if (sizeof($res)!=0){
+            return $res[0]['id'];
         }
         else{
             return -1;
@@ -36,18 +39,22 @@ class database{
     }
     
     public static function finding($ing,$dsn){
-        $result=$dsn->query("SELECT `name` FROM `ingredients` WHERE `name`='$ing' ");
-        if($row = $result->fetch(PDO::FETCH_ASSOC)){
+        $sth=$dsn->query("SELECT `name` FROM `ingredients` WHERE `name`=?");
+        $sth->execute(array($ing));
+        $res=$sth->fetchALL();
+        if (sizeof($res)!=0){
             return true;
         }
         else{
             return false;
         }
     }
-        public static function findingid($name,$dsn){
-        $result=$dsn->query("SELECT `id` FROM `ingredients` WHERE `name`='$name' ");
-        if ($row = $result->fetch(PDO::FETCH_ASSOC)){
-            return $row['id'];
+    public static function findingid($name,$dsn){
+        $sth=$dsn->prepare("SELECT `id` FROM `ingredients` WHERE `name`=?");
+        $sth->execute(array($name));
+        $res=$sth->fetchALL();
+        if (sizeof($res)!=0){
+            return $res[0]['id'];
         }
         else{
             return -1;
@@ -81,8 +88,10 @@ class database{
         return sizeof($user);
     }
     public static function finduser($user,$dsn){
-        $result=$dsn->query("SELECT `username` FROM `users` WHERE `username`='$user' ");
-        if($row = $result->fetch(PDO::FETCH_ASSOC)){
+        $sth=$dsn->query("SELECT `username` FROM `users` WHERE `username`=? ");
+        $sth->bind_param('s',$user);
+        $sth->execute();
+        if ($sth->fetch()){
             return true;
         }
         else{
@@ -90,26 +99,6 @@ class database{
         }
     }
     
-    public static function findrecip($recip,$dsn){
-        $result=$dsn->query("SELECT `name` FROM `recip` WHERE `name`='$recip' ");
-        if($row = $result->fetch(PDO::FETCH_ASSOC)){
-            return $row['id'];
-        }
-        else{
-            return false;
-        }
-    }
-    
-    public static function check($lg,$pw,$dsn){
-        $result=$dsn->query("SELECT `id` FROM `users` WHERE `username`='$lg' AND `password`=SHA1('$pw') ");
-        if ($result->fetch(PDO::FETCH_ASSOC)){
-            return true;
-         }
-        else{
-            return false;
-        }
-        
-    }
 }
     
 

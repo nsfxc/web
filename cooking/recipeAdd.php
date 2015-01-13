@@ -8,6 +8,7 @@
 ?>
         <section class="menu-padding">
             <div class="jumbotron container">
+                <div class="title">Add Recipes</div>
                 <form class="form-horizontal" action='<?php echo $_SERVER['PHP_SELF'];?>' method="POST" id="myform" enctype="multipart/form-data">
                 <div class="form-inline">
                     <label for="name">Name</label>
@@ -19,7 +20,7 @@
                             $user=$_GET['user'];
                         }
                         $dsn=  database::connect();
-                        $str="select * from recipes where `id`=$recipe and `user`=$user";
+                        $str="select `name` from recipes where `id`=$recipe and `user`=$user";
                         $result=$dsn->query($str)->fetchALL();
                         if (sizeof($result)!=0){
                             $name=$result[0]['name'];
@@ -60,7 +61,7 @@
                                     $user=$_GET['user'];
                                 }
                             $dsn=  database::connect();
-                            $str="select * from recipes where `id`=$recipe and `user`=$user";
+                            $str="select `method` from recipes where `id`=$recipe and `user`=$user";
                             $result=$dsn->query($str)->fetchALL();
                             if (sizeof($result)!=0){
                                 $method=$result[0]['method'];
@@ -84,7 +85,10 @@
             </div>
         </section>
     <?php
-    if (isset($_POST['submit'])){
+    /*
+     * Ici c'est la partie pour récupérer les informations des recette
+     */
+    if (isset($_POST['submit'])&&(preg_match("/^[a-zA-Z ]*$/",$_POST['name']))){
         if (isset($_SESSION['loggedin'])){
             $userid=$_SESSION['id'];
         }
@@ -92,7 +96,14 @@
             $userid=1;
         }
         $con=  database::connect();
-        $recipno=database::lastrecip($con);
+        if(isset($_GET['action'])){
+            $recipno=$_GET['recipe'];
+            
+        }else{
+            $str="insert into recipes(`name`) values ('')";
+            $con->query($str);
+            $recipno=database::lastrecip($con);
+        }
         if (file_exists($_FILES['image']['tmp_name'])){
             $currentdir = getcwd();
             $target_dir=$currentdir."/recipeimg/";
@@ -117,8 +128,9 @@
             {$new="cooker.png";}
         $name=$_POST['name'];
         $method=$_POST['method'];
+        if(!legal($method)){$method='';echo "Illegal method!";}
         $occasion=$_POST['occasion'];
-        $str = "INSERT INTO recipes (`name`, `method`,`occasion`,`user`) VALUES('$name', '$method','$occasion',(select `id` from `users` where `id`='$userid'))";
+        $str = "UPDATE `recipes` SET `name`='$name', `method`='$method',`occasion`='$occasion',`user`='$userid' WHERE `id`='$recipno'";
         $con->query($str);
         $no=1;
         $ingno="ing";
@@ -142,6 +154,7 @@ END;
         while(isset($_POST[$ingno])){
             $ingname=$_POST[$ingno];
             $amount=$_POST[$amountno];
+            if(preg_match("/^[a-zA-Z ]*$/",$ingname)&& preg_match("/^[a-zA-Z0-9 ]*$/",$amount)){
             $id=database::findingid($ingname,$con);
             echo "<tr><td>{$ingname}</td><td>$amount</td></tr>";
             if($id!= (-1)){
@@ -159,11 +172,13 @@ END;
             $ingno="ing";
             $ingno.=(string)$no;
             $amountno="amount";
-            $amountno.=(string)$no;
+            $amountno.=(string)$no;}
         }
         $con=null;
         echo "</table><br>";
         echo "<div class='method'>Method:<br>{$method}</div></div>";
+    }else{
+        echo "Illegal recipe name!";
     }
 echo $footer;
 ?>

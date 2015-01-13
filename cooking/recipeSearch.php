@@ -46,11 +46,12 @@
     if (isset($_POST['submit'])){
         $con=  database::connect();
         $occasion=$_POST['occasion'];
-        if($_POST['name']!=''){
+        if($_POST['name']!='' && preg_match("/^[a-zA-Z ]*$/",$_POST['name'])){
             $name=$_POST['name'];
             $str="SELECT `id` FROM `recipes` WHERE `name`='$name' AND `occasion`='$occasion'";
         }
         else{
+            echo "Recipe name illegal!<br>";
             $str="SELECT `id` FROM `recipes` WHERE `occasion`='$occasion'";
         }
         $kk=$con->query($str);
@@ -60,28 +61,30 @@
         $ingno.=(string)$no;
         $l= sizeof($result);
         while($l!=0 && isset($_POST[$ingno])){
-            if ($_POST[$ingno]!=''){
+            if ($_POST[$ingno]!='' && preg_match("/^[a-zA-Z ]*$/",$_POST['name'])){
             $ingname=$_POST[$ingno];
             $id=database::findingid($ingname,$con);
             if($id!= (-1)){
                 $str="SELECT `recipe` FROM recipesingredients WHERE `ingredient`='$id'";
                 $res=$con->query($str)->fetchALL();
-            }
-            $x=0;
-            while($l>0 && $x<$l){
-                $y=0;
-                $ls=sizeof($res);
-                while($y<$ls && $result[$x]['id']!=$res[$y]['recipe']){
-                    $y++;
-                }
-                if ($y==$ls){
-                    for($z=$x;$z<$l;$z++){
-                        $result[$z]=$result[$z+1];
+                $x=0;
+                while($l>0 && $x<$l){
+                    $y=0;
+                    $ls=sizeof($res);
+                    while($y<$ls && $result[$x]['id']!=$res[$y]['recipe']){
+                        $y++;
                     }
-                    $l--;$x--;
-                };
-                $x++;
-            }}
+                    if ($y==$ls){
+                        for($z=$x;$z<$l;$z++){
+                            $result[$z]=$result[$z+1];
+                        }
+                        $l--;$x--;
+                    };
+                $x++;}
+                }else{echo "$no ingredient not exist!";}
+            }else{
+                if(!preg_match("/^[a-zA-Z ]*$/",$_POST['name'])){echo "$no ingredient name illegal!";}
+            }
             $no++;
             $ingno="ing";
             $ingno.=(string)$no;

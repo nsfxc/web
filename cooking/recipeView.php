@@ -8,6 +8,7 @@
     ?>
     <section class="menu-padding">
         <div class="jumbotron container">
+            <div class="title">View Recipes</div>
 <?php
     function juge($str){
         if(isset($_GET[$str])){

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php
     require("developper/layout.php");
+    require("developper/show.php");
     echo $head;
     echo "<title>Profile</title><script src='js/profile.js'></script>";
     head();
@@ -39,7 +40,7 @@ END;
             }else{
                 $page=0;
             }
-            show("`user`='$id'","page",$page,"","profile.php?");
+            show("`user`='$userid'","page",$page,"","profile.php?");
             echo"</div></section>";
         }
     }

@@ -5,17 +5,7 @@
  * and open the template in the editor.
  */
 require ('developper/functions.php');
-if(isset($_POST['submit'])){
-    if (isset($_POST['username'])&&  isset($_POST['password']) && isset($_POST['email'])){
-        $con =  database::connect();
-        $str = "INSERT INTO users (`username`, `password`,`email`) VALUES('$_POST[username]', SHA1('$_POST[password]'), '$_POST[email]')";
-        $con->query($str);
-        $con=null;
-        
-    }
-    else{
-    }
-}
+
 ?>
 <?php
     require("developper/layout.php");
@@ -37,14 +27,14 @@ if(isset($_POST['submit'])){
             <div class="form-group">
                 <label class="col-sm-2 clontrol-label">Password</label>
                 <div class="col-sm-3">
-                    <input type="password" name="password" id="password1">
+                    <input type="password" name="password" id="password1" required>
                 </div>
                 <div id="message2"></div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 clontrol-label">Repeat your password</label>
                 <div class="col-sm-3">
-                    <input type="password" name="password2" id="password2">
+                    <input type="password" name="password2" id="password2" required>
                 </div>
                 <div id="message3"></div>
             </div>

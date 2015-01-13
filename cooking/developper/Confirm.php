@@ -1,12 +1,10 @@
 <?php
-
-require ('developper/functions.php');
+require("functions.php");
 if ($_GET['action']=="check"){
     if($_GET['conf']=="ingr"){
         $name=$_GET['ingname'];
         $dsn=  database::connect();
         $result=database::findingid($dsn,$name);
-        echo $result;
         $dsn=null;
         
     }

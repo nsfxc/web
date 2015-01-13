@@ -6,7 +6,11 @@
 $(document).ready(function(){
     $("#email").blur(function(){
         var name=$(this).val();
-        var changeURL="Confirm.php?action=check&conf=regis&ingname="+name;
+        var changeURL="developper/Confirm.php?action=check&conf=regis&ingname="+name;
+        if(name.indexOf('@')===-1 || name.indexOf('@')>=name.indexOf('.')){
+                $("#message1").html('<p>Illegal e-mail address!</p>');
+                $("#email").val("");
+        }else{
             $.get(changeURL,function(str){
                 if(str!=='-1'){
                     $("#message1").html('<p>E-mail existed, please choose another e-mail or login!</p>');
@@ -15,12 +19,12 @@ $(document).ready(function(){
                 else{
                     $("#message1").html('');
                 }
-            });
+            });}
     });
     $('#password1').blur(function(){
         var password=$(this).val();
-        if (password.length<=6){
-            $("#message2").html('<p>Password should have more than 6 characters!</p>')
+        if (password.length<6){
+            $("#message2").html('<p>Password should have at least 6 characters!</p>')
             $("#password").val("");
         }
         else{
@@ -47,13 +51,13 @@ $(document).ready(function(){
             alert("Registion Succeed!");
         }
         else{
-            if (email.indexOf('@')==-1 || email.length<=6){
+            if (email.indexOf('@')===-1 || email.length<=6){
                 $("#message1").html('<p>Email illegal!</p>');
             }
-            if(password1.length==0){
+            if(password1.length===0){
                 $("#message2").html('<p>Please choose a password!</p>');
             }
-            if(username.length==0){
+            if(username.length===0){
                 $("#message4").html('<p>Please choose an username!</p>')
             }
         }

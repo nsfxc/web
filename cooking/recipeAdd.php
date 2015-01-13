@@ -93,24 +93,28 @@
         }
         $con=  database::connect();
         $recipno=database::lastrecip($con);
-        $currentdir = getcwd();
-        $target_dir=$currentdir."/recipeimg/";
-        $target_file=$target_dir.basename($_FILES["image"]["name"]);
-        $imageFileType=pathinfo($target_file,PATHINFO_EXTENSION);
-        $upload_OK=1;
-        if($_FILES["image"]["size"]>5000000){
-            echo "Image too large!";
-            $upload_OK=0;
+        if (file_exists($_FILES['image']['tmp_name'])){
+            $currentdir = getcwd();
+            $target_dir=$currentdir."/recipeimg/";
+            $target_file=$target_dir.basename($_FILES["image"]["name"]);
+            $imageFileType=pathinfo($target_file,PATHINFO_EXTENSION);
+            $upload_OK=1;
+            if($_FILES["image"]["size"]>5000000){
+                echo "Image too large!";
+                $upload_OK=0;
+            }
+            if($imageFileType!="png" ){
+                echo"Only PNG files are allowed.";
+                $upload_OK=0;
+            }
+            if($upload_OK!=0){
+                $new=$recipno.".png";
+                $name=$target_dir.$new;
+                move_uploaded_file($_FILES['image']['tmp_name'],$name);
+            }
         }
-        if($imageFileType!="png" ){
-            echo"Only PNG files are allowed.";
-            $upload_OK=0;
-        }
-        if($upload_OK!=0){
-            $new=$recipno.".png";
-            $name=$target_dir.$new;
-            move_uploaded_file($_FILES['image']['tmp_name'],$name);
-        }else{$new="cooker.png";}
+        else
+            {$new="cooker.png";}
         $name=$_POST['name'];
         $method=$_POST['method'];
         $occasion=$_POST['occasion'];

@@ -25,16 +25,16 @@ function show($object,$index,$no,$pag,$url){
             for($i=$start;$i<$fin;$i++ ){
                 echo "<div class='recipe'>";
                 $id=$row[$i]['id'];
-                echo $row[$i]['name'];
                 if (isset($_SESSION['admin'])){
-                    echo"Delete<input type='submit' name='delete' value='$id'>";
+                    echo"<div class='modif'>Delete<input type='submit' name='delete' value='$id'></div>";
                 }
                 else{
                     if (isset($_SESSION['loggedIn'])&&($_SESSION['id']==$id)){
-                    $user=$_SEESION['id'];
-                    echo"<a href='recipeAdd.php?action='modify'&recipe=$id&user=$user>Modify</a>";
-                    echo"Delete<input type='submit' name='delete' value='$id'>";}
+                        $user=$_SEESION['id'];
+                        echo"<div class='modif'><a href='recipeAdd.php?action='modify'&recipe=$id&user=$user>Modify</a>";
+                        echo"Delete<input type='submit' name='delete' value='$id'></div>";}
                 }
+                echo $row[$i]['name'];
                 if(file_exists("recipeimg/".$id.".png")){
                     echo "<img class='img-circle' src='recipeimg/$id.png'>";
                 }else{
@@ -42,7 +42,7 @@ function show($object,$index,$no,$pag,$url){
                 }
                 $id=$row[$i]['id'];
                 $ing=$dsn->query("SELECT * FROM `recipesingredients` WHERE `recipe`='$id' ");
-                echo"<table class='table table-bordered'><thead><tr><th>Ingredient Name</th><th>Amount</th><tr><thead>";
+                echo"<table class='ingredient table table-bordered'><thead><tr><th>Ingredient Name</th><th>Amount</th><tr><thead>";
                 $rowing=$ing->fetchALL();
                 for($j=0;$j<sizeof($rowing);$j++){
                     $id=$rowing[$j]['ingredient'];

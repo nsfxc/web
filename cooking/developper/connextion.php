@@ -1,30 +1,21 @@
 <?php
  
-    require_once("developper/functions.php");
+    require_once("functions.php");
     class Utilisateur {
+        public $id;
         public $username;
         public $password;
         public $email;
         public static function getUtilisateur($login) {
             $dbh = Database::connect();
-            $query="SELECT * FROM `admin` WHERE `username`=?";
-            $sth=$dbh->prepare($query);
-            $sth->setFetchMode(PDO::FETCH_CLASS,'Utilisateur');
-            $request_succeeded=$sth->execute(array($login));
-            if(!request_succeed){
-                $query = "SELECT * FROM `users` WHERE `email`=?";
-                $sth = $dbh->prepare($query);
-                $sth->setFetchMode(PDO::FETCH_CLASS, 'Utilisateur');
-                $request_succeeded = $sth->execute(array($login));
-                if (!$request_succeeded) {
+            $query = "SELECT * FROM `users` WHERE `email`=?";
+            $sth = $dbh->prepare($query);
+            $sth->setFetchMode(PDO::FETCH_CLASS, 'Utilisateur');
+            $request_succeeded = $sth->execute(array($login));
+            if (!$request_succeeded) {
                     return NULL;
-                } else {
-                    $user = $sth->fetch();
-                    return $user;
-            }}
-            else{
-                $_SESSION['admin']=true;
-                $user=$sth->fetch();
+             } else {
+                $user = $sth->fetch();
                 return $user;
             }
             $dbh = null;

@@ -30,14 +30,19 @@
             echo "<form action='' method='POST'>";
             for($i=$start;$i<$fin;$i++ ){
                 echo "<div class='recipe'>";
-                $id=$row[$i]['id'];
-                echo "Delet user<input class='btn btn-default' type='submit' name='delete' value='$id'>";
-                echo "<br>User name:";
-                echo $row[$i]['username'];
-                echo "<br>E-mail:";
-                $email=$row[$i]['email'];
-                echo $email;
-                echo "<input type='text' name='text' placeholder='send a message'>Send to<input type='submit' name='submit' value=$email>";
+                if ($row[$i]['is_admin']==0){
+                    $id=$row[$i]['id'];
+                    echo "<div class='modif'>Delete user<input class='btn btn-default' type='submit' name='delete' value='$id'></div>";
+                    echo "<div class='user'>User name: ";
+                    echo $row[$i]['username'];
+                    echo "</div><div class='user'>E-mail: ";
+                    $email=$row[$i]['email'];
+                    echo $email;
+                    echo "</div><input type='text' name='text' placeholder='send a message'>Send to<input class='btn btn-default' type='submit' name='submit' value=$email>";  
+                }else{
+                    echo "Administer: ";
+                    echo $row[$i]['username'];
+                }
                 echo "</div>";
             };
             if($page>1){$prev=$page-1;};

@@ -27,7 +27,7 @@ class database{
 
     public static function finduserid($email,$dsn){
         $result=$dsn->query("SELECT `id` FROM `users` WHERE `email`='$email' ");
-        if ($row = $result->fetchALL()){
+        if (sizeof($row = $result->fetchALL())!=0){
             return $row[0]['id'];
         }
         else{

@@ -70,3 +70,20 @@
             </section>
     </body>
 </html>
+<?php
+if(isset($_POST['submit'])){
+    $dbh = Database::connect();
+    $username=$_POST['username'];
+    $password=$_POST['password'];
+    $email=$_POST['email'];
+    $sth = $dbh->prepare("INSERT INTO `users` (`username`, `password`,`email`) VALUES(?,SHA1(?),?)");
+    $request_succeeded = $dbh->execute($sth,array($username,$password,$email));
+    if (!$request_succeded){
+        echo "<script>Something Wrong</script>";
+        header("userAdd.php");
+    }else{
+        echo "<script>Registion succeed!</script>";
+    };
+    $dbh = null;
+}
+?>

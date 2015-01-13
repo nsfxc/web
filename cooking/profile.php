@@ -17,12 +17,8 @@
         }
         else{
             $userid=$_SESSION['id'];
-            $dsn=database::connect();
-            $str="SELECT * FROM `users` where `id`='$userid'";
-            $user=$dsn->query($str)->fetchALL();
-            $email=$user[0]['email'];
-            $username=$user[0]['username'];
-            $id=$user[0]['id'];
+            $email=$_SESSION['email'];
+            $username=$_SESSION['username'];
 echo <<<END
             <section class="menu-padding">
                 <div id="pemail">

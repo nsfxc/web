@@ -1,6 +1,6 @@
 <?php
    
-    require_once("developper/connextion.php");
+    require_once("connextion.php");
     function start(){
         session_name("shen");
 // ne pas mettre d'espace dans le nom de session !
@@ -35,7 +35,12 @@ END;
             if (Utilisateur::testerMdp2($uti,$_POST["password"])){
                 $_SESSION['loggedIn'] = true;
                 $_SESSION['id']=$uti->id;
-                $_SESSION['name']=$uti->username;
+                $_SESSION['username']=$uti->username;
+                $_SESSION['email']=$uti->email;
+                $_SESSION['password']=$uti->password;
+                if ($uti->is_admin==1){
+                    $_SESSION['admin']=true;
+                }
             }
             else{
                 echo "password incorrect";
@@ -67,8 +72,6 @@ echo <<<END
 END;
                 printLogoutForm();
             }else{
-            $name=$_SESSION['name'];
-            $id=$_SESSION['id'];
 echo <<<END
                  <nav class="navbar-default">
                     <ul class="nav navbar-nav"><li><a href='profile.php'>My Profile</a></li>

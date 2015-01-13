@@ -7,7 +7,7 @@
  * and open the template in the editor.
  */
 
-require ("developper/login.php");
+require ("login.php");
 $head='<html>
 	<head>
         <meta charset="UTF-8">

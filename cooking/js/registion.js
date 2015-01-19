@@ -23,13 +23,13 @@ $(document).ready(function(){
     });
     $('#password1').blur(function(){
         var password=$(this).val();
-        if(!password.match(/[^a-zA-Z0-9]/)){
+        if(!password.match(/^[\w ]+$/)){
             $("#message2").html('<p>Password should only have letters or numbers!</p>');
-            $("#password").val("");
+            $("#password1").val("");
         }else{
         if (password.length<6){
             $("#message2").html('<p>Password should have at least 6 characters!</p>')
-            $("#password").val("");
+            $("#password1").val("");
         }
         else{
             $("#message2").html('');
@@ -38,7 +38,7 @@ $(document).ready(function(){
     $('#password2').blur(function(){
         var password2=$(this).val();
         var password1=$('#password1').val();
-        if(!password2.match(/[^a-zA-Z0-9]/)){
+        if(!password2.match(/^[\w ]+$/)){
             $("#message3").html('<p>Password should only have letters or numbers!</p>');
             $("#password2").val("");
         }else{
@@ -52,7 +52,7 @@ $(document).ready(function(){
     });
     $('#username').blur(function(){
        var username=$(this).val();
-       if (!username.match(/[^a-zA-Z0-9]/)){
+       if (!username.match(/^[\w ]+$/)){
            $("#message4").html('<p>Username should only have letters or numbers!</p>');
            $("#username").val("");
        }

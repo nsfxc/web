@@ -178,7 +178,7 @@ END;
         echo "</table><br>";
         echo "<div class='method'>Method:<br>{$method}</div></div>";
     }else{
-        echo "Illegal recipe name!";
+        if(isset($_POST['submit'])){echo "Illegal recipe name!";};
     }
 echo $footer;
 ?>

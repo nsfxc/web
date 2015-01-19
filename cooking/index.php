@@ -76,13 +76,13 @@ if(isset($_POST['submit'])){
     $username=$_POST['username'];
     $password=$_POST['password'];
     $email=$_POST['email'];
-    $sth = $dbh->prepare("INSERT INTO `users` (`username`, `password`,`email`) VALUES(?,SHA1(?),?)");
-    $request_succeeded = $dbh->execute($sth,array($username,$password,$email));
-    if (!$request_succeded){
-        echo "<script>Something Wrong</script>";
+    $sth = $dbh->prepare("INSERT INTO `users` (`username`, `password`,`email`,`is_admin`) VALUES(?,SHA1(?),?,?)");
+    $request_succeeded = $sth->execute(array($username,$password,$email,0));
+    if (!$request_succeeded){
+        echo "<script>alert('Something Wrong')</script>";
         header("userAdd.php");
     }else{
-        echo "<script>Registion succeed!</script>";
+        echo "<script>alert('Registion succeed!')</script>";
     };
     $dbh = null;
 }

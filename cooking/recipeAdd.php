@@ -110,12 +110,12 @@
             $target_file=$target_dir.basename($_FILES["image"]["name"]);
             $imageFileType=pathinfo($target_file,PATHINFO_EXTENSION);
             $upload_OK=1;
-            if($_FILES["image"]["size"]>5000000){
-                echo "Image too large!";
+            if($_FILES["image"]["size"]>10000000){
+                echo "<script>alert('Image too large!')</script>";
                 $upload_OK=0;
             }
             if($imageFileType!="png" ){
-                echo"Only PNG files are allowed.";
+                echo"<script>alert('Only PNG files are allowed.')</script>";
                 $upload_OK=0;
             }
             if($upload_OK!=0){
@@ -178,7 +178,7 @@ END;
         echo "</table><br>";
         echo "<div class='method'>Method:<br>{$method}</div></div>";
     }else{
-        if(isset($_POST['submit'])){echo "Illegal recipe name!";};
+        if(isset($_POST['submit'])){echo "<script>alert('Illegal recipe name!')</script>";};
     }
 echo $footer;
 ?>
